@@ -1,5 +1,5 @@
 ---
-import { OptimizedImage } from '../components/OptimizedImage.astro';
+import { Image } from 'astro:assets';
 import HeroImage from '../assets/images/hero.png';
 ---
 
@@ -48,13 +48,16 @@ import HeroImage from '../assets/images/hero.png';
       <div class="relative" data-aos="fade-left">
         <div class="relative animate-float group">
           <div class="relative transition-transform duration-500 ease-out group-hover:scale-[1.02]">
-            <OptimizedImage
+            <Image
               src={HeroImage}
               alt="Hero Image"
+              class="w-full h-auto rounded-2xl relative z-10"
               width={800}
               height={600}
-              class="w-full h-auto rounded-2xl relative z-10"
-              priority={true}
+              loading="eager"
+              decoding="sync"
+              format="webp"
+              quality={90}
             />
             <!-- Shadow overlay with gradient mask -->
             <div 
@@ -130,18 +133,5 @@ import HeroImage from '../assets/images/hero.png';
 
   .animation-delay-2000 {
     animation-delay: 2s;
-  }
-
-  /* Add preload for the hero image */
-  :root {
-    --hero-image: url('/assets/images/hero.webp');
-  }
-
-  /* Add a low-quality image placeholder */
-  .hero-image-placeholder {
-    background-image: var(--hero-image);
-    background-size: cover;
-    filter: blur(10px);
-    transform: scale(1.1);
   }
 </style>

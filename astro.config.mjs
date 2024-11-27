@@ -7,17 +7,6 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
   },
-  image: {
-    service: {
-      entrypoint: 'astro/assets/services/sharp',
-    },
-    domains: ['assets.example.com'],
-    remotePatterns: [{ protocol: "https" }],
-    serviceEntryPoint: '@astrojs/image/sharp',
-    cacheDir: './.cache/image',
-    defaultQuality: 85,
-    format: ['webp', 'avif'],
-  },
   vite: {
     build: {
       cssCodeSplit: true,
@@ -33,9 +22,6 @@ export default defineConfig({
           additionalData: `@import "src/styles/critical.css";`,
         },
       },
-    },
-    optimizeDeps: {
-      include: ['@astrojs/image'],
     },
   },
 });
