@@ -97,28 +97,29 @@ const navItems = [
 
   <!-- Mobile menu -->
   <div 
-    class="lg:hidden"
+    class="lg:hidden absolute right-0 w-full"
     id="mobile-menu"
     x-data
     x-show="$store.mobileMenu.isOpen"
     x-cloak
   >
-    <div class="px-4 py-3 border-t border-gray-100">
+    <div class="mx-4 px-4 py-3 bg-white border border-gray-100 rounded-lg shadow-lg">
       {navItems.map(({ path, label }) => {
         const active = isActive(path);
         return (
           <a 
             href={path} 
             class:list={[
-              "block py-2 text-sm font-medium rounded-lg",
+              "block py-2 text-sm font-medium rounded-lg text-right",
               {
-                "text-white bg-accent w-fit px-4": active,
+                "text-white bg-accent w-fit px-4 ml-auto": active,
                 "text-gray-600 hover:text-accent": !active
               }
             ]}
             data-nav-link
             data-path={path}
             data-active={active}
+            @click="$store.mobileMenu.close()"
           >
             {label}
           </a>
@@ -129,7 +130,7 @@ const navItems = [
       <a 
         href="/kontakt" 
         class:list={[
-          "mt-4 block w-fit px-4 py-2 text-sm font-medium rounded-lg cta-breath",
+          "mt-4 block w-fit px-4 py-2 text-sm font-medium rounded-lg cta-breath ml-auto",
           {
             "text-white bg-accent": isActive('/kontakt'),
             "bg-accent text-white hover:bg-accent/90": !isActive('/kontakt')
@@ -138,6 +139,7 @@ const navItems = [
         data-nav-link
         data-path="/kontakt"
         data-active={isActive('/kontakt')}
+        @click="$store.mobileMenu.close()"
       >
         Kontakt
       </a>
@@ -203,6 +205,11 @@ const navItems = [
       this.isOpen = false;
       document.body.style.overflow = '';
     }
+  });
+  
+  // Add event listener to close menu on navigation
+  document.addEventListener('astro:page-load', () => {
+    Alpine.store('mobileMenu').close();
   });
   
   Alpine.start();
