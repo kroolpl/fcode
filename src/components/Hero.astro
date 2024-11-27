@@ -57,7 +57,9 @@ import HeroImage from '../assets/images/hero.png';
               loading="eager"
               decoding="sync"
               format="webp"
-              quality={90}
+              quality={85}
+              priority={true}
+              fetchpriority="high"
             />
             <!-- Shadow overlay with gradient mask -->
             <div 
@@ -133,5 +135,18 @@ import HeroImage from '../assets/images/hero.png';
 
   .animation-delay-2000 {
     animation-delay: 2s;
+  }
+
+  /* Add preload for the hero image */
+  :root {
+    --hero-image: url('/assets/images/hero.webp');
+  }
+
+  /* Add a low-quality image placeholder */
+  .hero-image-placeholder {
+    background-image: var(--hero-image);
+    background-size: cover;
+    filter: blur(10px);
+    transform: scale(1.1);
   }
 </style>
