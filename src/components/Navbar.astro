@@ -8,32 +8,34 @@ import Logo from '../assets/images/logo.png';
     <div class="flex justify-between items-center h-20">
       <!-- Logo on the left -->
       <div class="flex-shrink-0">
-        <a href="/" class="flex items-center">
+        <a href="/" class="flex items-center" aria-label="Strona główna">
           <Image 
             src={Logo} 
-            alt="Company Logo"
+            alt="Logo firmy Nowoczesna Agencja"
             class="h-8 w-auto hover:opacity-80 transition-opacity"
-            width={128}
-            height={32}
+            width={256}
+            height={64}
+            quality={100}
           />
         </a>
       </div>
       
       <!-- Desktop Navigation -->
-      <div class="hidden lg:flex items-center space-x-8">
-        <a href="/" class="text-primary hover:text-accent transition-colors font-medium">Strona Główna</a>
-        <a href="/uslugi" class="text-primary hover:text-accent transition-colors font-medium">Usługi</a>
-        <a href="/o-nas" class="text-primary hover:text-accent transition-colors font-medium">O nas</a>
-        <a href="/realizacje" class="text-primary hover:text-accent transition-colors font-medium">Realizacje</a>
-        <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">Blog</a>
-        <a href="/kontakt" class="text-primary hover:text-accent transition-colors font-medium">Kontakt</a>
-      </div>
+      <nav class="hidden lg:flex items-center space-x-8" aria-label="Menu główne">
+        <a href="/" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/" ? "page" : undefined}>Strona Główna</a>
+        <a href="/uslugi" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/uslugi" ? "page" : undefined}>Usługi</a>
+        <a href="/o-nas" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/o-nas" ? "page" : undefined}>O nas</a>
+        <a href="/realizacje" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/realizacje" ? "page" : undefined}>Realizacje</a>
+        <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/blog" ? "page" : undefined}>Blog</a>
+        <a href="/kontakt" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/kontakt" ? "page" : undefined}>Kontakt</a>
+      </nav>
       
       <!-- Desktop Action buttons -->
       <div class="hidden lg:flex items-center space-x-4">
         <a 
           href="/kontakt" 
           class="group relative inline-flex items-center px-6 py-3 bg-accent text-white hover:bg-accent/90 transition-all duration-300 font-medium rounded-lg animate-subtle-pulse hover:scale-105"
+          aria-label="Przejdź do formularza darmowej wyceny"
         >
           <span class="relative flex items-center">
             Darmowa Wycena
