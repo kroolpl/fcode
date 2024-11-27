@@ -1,80 +1,209 @@
 ---
 import { Image } from 'astro:assets';
 import Logo from '../assets/images/logo.png';
+
+const currentPath = Astro.url.pathname;
+const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/';
+const isActive = (path: string) => normalizePath(currentPath) === normalizePath(path);
+
+// Modified navigation items to remove Kontakt from regular menu
+const navItems = [
+  { path: '/', label: 'Strona Główna' },
+  { path: '/uslugi', label: 'Usługi' },
+  { path: '/o-nas', label: 'O nas' },
+  { path: '/realizacje', label: 'Realizacje' },
+  { path: '/blog', label: 'Blog' }
+];
 ---
 
-<nav 
-  class="fixed w-full z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/30 shadow-sm nav-transition"
-  transition:persist
-  transition:animate="fade"
->
+<nav class="fixed w-full z-50 bg-white border-b border-gray-100">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-20">
-      <!-- Logo on the left -->
-      <div class="flex-shrink-0">
-        <a href="/" class="flex items-center" aria-label="Strona główna">
-          <Image 
-            src={Logo} 
-            alt="Logo firmy Nowoczesna Agencja"
-            class="h-6 w-auto hover:opacity-80 transition-opacity"
-            width={256}
-            height={64}
-            quality={100}
-          />
-        </a>
-      </div>
-      
+      <!-- Logo -->
+      <a href="/" class="flex items-center" aria-label="Strona główna">
+        <Image 
+          src={Logo} 
+          alt="Logo firmy Nowoczesna Agencja"
+          class="h-7 w-auto"
+          width={256}
+          height={64}
+          loading="eager"
+        />
+      </a>
+
       <!-- Desktop Navigation -->
-      <nav class="hidden lg:flex items-center space-x-8" aria-label="Menu główne">
-        <a href="/" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/" ? "page" : undefined}>Strona Główna</a>
-        <a href="/uslugi" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/uslugi" ? "page" : undefined}>Usługi</a>
-        <a href="/o-nas" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/o-nas" ? "page" : undefined}>O nas</a>
-        <a href="/realizacje" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/realizacje" ? "page" : undefined}>Realizacje</a>
-        <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/blog" ? "page" : undefined}>Blog</a>
-        <a href="/kontakt" class="text-primary hover:text-accent transition-colors font-medium" aria-current={Astro.url.pathname === "/kontakt" ? "page" : undefined}>Kontakt</a>
-      </nav>
-      
-      <!-- Desktop Action buttons -->
-      <div class="hidden lg:flex items-center space-x-4">
-        <a 
-          href="/kontakt" 
-          class="group relative inline-flex items-center px-6 py-3 bg-accent text-white hover:bg-accent/90 transition-all duration-300 font-medium rounded-lg animate-subtle-pulse hover:scale-105"
-          aria-label="Przejdź do formularza darmowej wyceny"
-        >
-          <span class="relative flex items-center">
-            Darmowa Wycena
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </span>
-        </a>
+      <div class="hidden lg:flex items-center gap-1">
+        <nav class="flex items-center" aria-label="Menu główne">
+          {navItems.map(({ path, label }) => {
+            const active = isActive(path);
+            return (
+              <a 
+                href={path} 
+                class:list={[
+                  "px-4 py-2 text-sm font-medium rounded-lg",
+                  {
+                    "text-white bg-accent": active,
+                    "text-gray-600 hover:text-accent hover:bg-gray-50": !active
+                  }
+                ]}
+                data-nav-link
+                data-path={path}
+                data-active={active}
+              >
+                {label}
+              </a>
+            );
+          })}
+          <!-- CTA Button -->
+          <a 
+            href="/kontakt" 
+            class:list={[
+              "ml-4 px-5 py-2 text-sm font-medium rounded-lg cta-breath",
+              {
+                "text-white bg-accent": isActive('/kontakt'),
+                "bg-accent text-white hover:bg-accent/90": !isActive('/kontakt')
+              }
+            ]}
+            data-nav-link
+            data-path="/kontakt"
+            data-active={isActive('/kontakt')}
+          >
+            Kontakt
+          </a>
+        </nav>
       </div>
+
+      <!-- Mobile menu button -->
+      <button 
+        type="button" 
+        class="lg:hidden p-2 text-gray-600"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        x-data
+        @click="$store.mobileMenu.toggle()"
+      >
+        <span class="sr-only">Otwórz menu</span>
+        <svg 
+          class="h-6 w-6"
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div 
+    class="lg:hidden"
+    id="mobile-menu"
+    x-data
+    x-show="$store.mobileMenu.isOpen"
+    x-cloak
+  >
+    <div class="px-4 py-3 border-t border-gray-100">
+      {navItems.map(({ path, label }) => {
+        const active = isActive(path);
+        return (
+          <a 
+            href={path} 
+            class:list={[
+              "block py-2 text-sm font-medium rounded-lg",
+              {
+                "text-white bg-accent w-fit px-4": active,
+                "text-gray-600 hover:text-accent": !active
+              }
+            ]}
+            data-nav-link
+            data-path={path}
+            data-active={active}
+          >
+            {label}
+          </a>
+        );
+      })}
+      
+      <!-- Mobile CTA -->
+      <a 
+        href="/kontakt" 
+        class:list={[
+          "mt-4 block w-fit px-4 py-2 text-sm font-medium rounded-lg cta-breath",
+          {
+            "text-white bg-accent": isActive('/kontakt'),
+            "bg-accent text-white hover:bg-accent/90": !isActive('/kontakt')
+          }
+        ]}
+        data-nav-link
+        data-path="/kontakt"
+        data-active={isActive('/kontakt')}
+      >
+        Kontakt
+      </a>
     </div>
   </div>
 </nav>
 
 <style>
-  @keyframes subtle-pulse {
+  [x-cloak] {
+    display: none !important;
+  }
+
+  /* Subtle breathing animation for CTA */
+  .cta-breath {
+    animation: breathe 3s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
     0%, 100% {
-      box-shadow: 0 0 0 0 rgba(239, 35, 60, 0.4);
+      transform: scale(1);
     }
     50% {
-      box-shadow: 0 0 0 10px rgba(239, 35, 60, 0);
+      transform: scale(1.05);
     }
   }
 
-  .animate-subtle-pulse {
-    animation: subtle-pulse 3s infinite;
-  }
-
-  /* Optional: Pause animation on hover */
-  .animate-subtle-pulse:hover {
-    animation-play-state: paused;
+  /* Disable animation when user prefers reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .cta-breath {
+      animation: none;
+    }
   }
 </style>
+
+<script>
+  // Active state management
+  const updateActiveStates = () => {
+    const currentPath = normalizePath(window.location.pathname);
+    const navLinks = document.querySelectorAll('[data-nav-link]');
+    
+    navLinks.forEach(link => {
+      const path = link.getAttribute('data-path');
+      const isActive = currentPath === normalizePath(path);
+      link.setAttribute('data-active', String(isActive));
+    });
+  };
+
+  const normalizePath = (path) => path.replace(/\/+$/, '') || '/';
+
+  document.addEventListener('astro:page-load', updateActiveStates);
+  
+  // Mobile menu management
+  import Alpine from 'alpinejs';
+  window.Alpine = Alpine;
+  
+  Alpine.store('mobileMenu', {
+    isOpen: false,
+    toggle() {
+      this.isOpen = !this.isOpen;
+      document.body.style.overflow = this.isOpen ? 'hidden' : '';
+    },
+    close() {
+      this.isOpen = false;
+      document.body.style.overflow = '';
+    }
+  });
+  
+  Alpine.start();
+</script>
