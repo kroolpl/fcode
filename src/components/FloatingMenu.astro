@@ -52,73 +52,45 @@
     <!-- Menu content -->
     <nav class="relative h-full flex flex-col justify-between px-8 py-20">
       <!-- Main Navigation -->
-      <div class="flex flex-col items-start space-y-6">
+      <div class="flex flex-col items-end space-y-6 pr-2">
         <p class="text-white/60 text-sm font-medium tracking-wider uppercase mb-4">Menu</p>
-        <a 
-          href="/" 
-          @click="isOpen = false"
-          class="text-4xl font-bold text-white hover:text-white/80 transition-all transform hover:translate-x-2 duration-200"
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          Strona Główna
-        </a>
-        <a 
-          href="/uslugi" 
-          @click="isOpen = false"
-          class="text-4xl font-bold text-white hover:text-white/80 transition-all transform hover:translate-x-2 duration-200"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
-          Usługi
-        </a>
-        <a 
-          href="/o-nas" 
-          @click="isOpen = false"
-          class="text-4xl font-bold text-white hover:text-white/80 transition-all transform hover:translate-x-2 duration-200"
-          data-aos="fade-up"
-          data-aos-delay="300"
-        >
-          O nas
-        </a>
-        <a 
-          href="/realizacje" 
-          @click="isOpen = false"
-          class="text-4xl font-bold text-white hover:text-white/80 transition-all transform hover:translate-x-2 duration-200"
-          data-aos="fade-up"
-          data-aos-delay="400"
-        >
-          Realizacje
-        </a>
-        <a 
-          href="/blog" 
-          @click="isOpen = false"
-          class="text-4xl font-bold text-white hover:text-white/80 transition-all transform hover:translate-x-2 duration-200"
-          data-aos="fade-up"
-          data-aos-delay="500"
-        >
-          Blog
-        </a>
-        <a 
-          href="/kontakt" 
-          @click="isOpen = false"
-          class="text-4xl font-bold text-white hover:text-white/80 transition-all transform hover:translate-x-2 duration-200"
-          data-aos="fade-up"
-          data-aos-delay="600"
-        >
-          Kontakt
-        </a>
+        {[
+          { href: "/", text: "Strona Główna", delay: 100 },
+          { href: "/uslugi", text: "Usługi", delay: 200 },
+          { href: "/o-nas", text: "O nas", delay: 300 },
+          { href: "/realizacje", text: "Realizacje", delay: 400 },
+          { href: "/blog", text: "Blog", delay: 500 },
+          { href: "/kontakt", text: "Kontakt", delay: 600 }
+        ].map((item) => (
+          <a 
+            href={item.href} 
+            @click="isOpen = false"
+            class="group text-4xl font-bold text-white hover:text-white/80 transition-all transform hover:-translate-x-2 duration-200 flex items-center space-x-3"
+            data-aos="fade-left"
+            data-aos-delay={item.delay}
+          >
+            <span>{item.text}</span>
+            <svg 
+              class="w-6 h-6 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-200" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        ))}
       </div>
 
       <!-- Bottom Section with CTA and Social Media -->
-      <div class="space-y-8">
+      <div class="space-y-8 flex flex-col items-end">
         <!-- Social Media Links -->
-        <div class="space-y-4" data-aos="fade-up" data-aos-delay="700">
+        <div class="space-y-4 text-right" data-aos="fade-up" data-aos-delay="700">
           <p class="text-white/60 text-sm font-medium tracking-wider uppercase mb-4">Śledź nas</p>
           <div class="flex space-x-6">
             <a 
               href="#" 
-              class="text-white/80 hover:text-white transition-colors duration-200"
+              class="text-white/80 hover:text-white transition-colors duration-200 hover:scale-110 transform"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -128,7 +100,7 @@
             </a>
             <a 
               href="#" 
-              class="text-white/80 hover:text-white transition-colors duration-200"
+              class="text-white/80 hover:text-white transition-colors duration-200 hover:scale-110 transform"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -138,7 +110,7 @@
             </a>
             <a 
               href="#" 
-              class="text-white/80 hover:text-white transition-colors duration-200"
+              class="text-white/80 hover:text-white transition-colors duration-200 hover:scale-110 transform"
               target="_blank"
               rel="noopener noreferrer"
             >
