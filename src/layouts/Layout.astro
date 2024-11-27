@@ -23,13 +23,15 @@ const { title } = Astro.props;
     <ViewTransitions />
     <FontLoader />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="preload" href="/assets/images/hero.webp" as="image" type="image/webp" fetchpriority="high" />
-    <link rel="preload" href="/assets/logo.png" as="image" />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-      as="style"
+    <link 
+      rel="preload" 
+      href={import.meta.env.BASE_URL + 'assets/images/hero.webp'} 
+      as="image" 
+      type="image/webp" 
+      fetchpriority="high"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <style is:inline>
       .hero-section {
         min-height: 100vh;

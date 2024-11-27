@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { OptimizedImage } from '../components/OptimizedImage.astro';
 import HeroImage from '../assets/images/hero.png';
 ---
 
@@ -48,18 +48,13 @@ import HeroImage from '../assets/images/hero.png';
       <div class="relative" data-aos="fade-left">
         <div class="relative animate-float group">
           <div class="relative transition-transform duration-500 ease-out group-hover:scale-[1.02]">
-            <Image
+            <OptimizedImage
               src={HeroImage}
               alt="Hero Image"
-              class="w-full h-auto rounded-2xl relative z-10"
               width={800}
               height={600}
-              loading="eager"
-              decoding="sync"
-              format="webp"
-              quality={85}
+              class="w-full h-auto rounded-2xl relative z-10"
               priority={true}
-              fetchpriority="high"
             />
             <!-- Shadow overlay with gradient mask -->
             <div 
