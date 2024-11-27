@@ -103,7 +103,7 @@ const navItems = [
     x-show="$store.mobileMenu.isOpen"
     x-cloak
   >
-    <div class="mx-4 px-4 py-3 bg-white border border-gray-100 rounded-lg shadow-lg">
+    <div class="px-4 py-3 bg-white border-t border-gray-100">
       {navItems.map(({ path, label }) => {
         const active = isActive(path);
         return (
@@ -113,7 +113,7 @@ const navItems = [
               "block py-2 text-sm font-medium rounded-lg text-right",
               {
                 "text-white bg-accent w-fit px-4 ml-auto": active,
-                "text-gray-600 hover:text-accent": !active
+                "text-gray-600 hover:text-accent w-full": !active
               }
             ]}
             data-nav-link

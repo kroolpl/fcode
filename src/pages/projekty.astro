@@ -127,16 +127,17 @@ const categories = ['Wszystkie', ...new Set(projects.map(project => project.cate
 
       // Filter projects
       projects.forEach(project => {
-        const projectCategory = project.getAttribute('data-project-category');
+        const projectElement = project as HTMLElement;
+        const projectCategory = projectElement.getAttribute('data-project-category');
         if (category === 'Wszystkie' || category === projectCategory) {
-          project.style.display = 'block';
-          project.classList.remove('fade-out');
-          project.classList.add('fade-in');
+          projectElement.style.display = 'block';
+          projectElement.classList.remove('fade-out');
+          projectElement.classList.add('fade-in');
         } else {
-          project.classList.remove('fade-in');
-          project.classList.add('fade-out');
+          projectElement.classList.remove('fade-in');
+          projectElement.classList.add('fade-out');
           setTimeout(() => {
-            project.style.display = 'none';
+            projectElement.style.display = 'none';
           }, 300);
         }
       });
