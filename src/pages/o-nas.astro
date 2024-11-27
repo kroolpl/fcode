@@ -1,9 +1,40 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
 import BossImage from '../assets/images/boss.jpeg';
-import Footer from '../components/Footer.astro';
+
+const stats = [
+  { number: '10+', label: 'Lat doświadczenia' },
+  { number: '100+', label: 'Zadowolonych klientów' },
+  { number: '250+', label: 'Zrealizowanych projektów' },
+  { number: '24/7', label: 'Wsparcie techniczne' }
+];
+
+const values = [
+  {
+    icon: 'innovation',
+    title: 'Innowacyjność',
+    description: 'Stale śledzimy najnowsze trendy i technologie, aby dostarczać nowoczesne rozwiązania.'
+  },
+  {
+    icon: 'quality',
+    title: 'Jakość',
+    description: 'Każdy projekt realizujemy z najwyższą dbałością o szczegóły i wydajność.'
+  },
+  {
+    icon: 'partnership',
+    title: 'Partnerstwo',
+    description: 'Budujemy długotrwałe relacje oparte na zaufaniu i wzajemnym zrozumieniu.'
+  }
+];
+
+const icons = {
+  innovation: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />`,
+  quality: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />`,
+  partnership: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />`
+};
 ---
 
 <Layout title="O nas - Nowoczesna Agencja Interaktywna">
@@ -12,131 +43,104 @@ import Footer from '../components/Footer.astro';
   <main class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Hero Section -->
-      <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
-        <!-- Text Content - Left Side -->
-        <div class="order-1" data-aos="fade-right">
-          <span class="text-accent uppercase tracking-wider font-semibold bg-accent/10 px-4 py-2 rounded-full inline-block mb-4">O mnie</span>
-          <h1 class="text-4xl md:text-5xl font-bold text-primary mb-6">
-            Cześć, jestem <span class="text-accent">Krystian</span>
-          </h1>
-          <p class="text-xl text-accent font-medium mb-8">
-            Twój partner w świecie internetu!
-          </p>
-          <div class="flex flex-wrap gap-4 mb-8">
-            <div class="flex items-center space-x-2 bg-accent/5 px-4 py-2 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-secondary">5+ lat doświadczenia</span>
-            </div>
-            <div class="flex items-center space-x-2 bg-accent/5 px-4 py-2 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-              <span class="text-secondary">200+ zadowolonych klientów</span>
-            </div>
+      <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
+        <!-- Image Section - Updated size -->
+        <div class="relative max-w-lg mx-auto lg:mx-0" data-aos="fade-right">
+          <div class="relative">
+            <Image
+              src={BossImage}
+              alt="CEO Nowoczesnej Agencji"
+              class="w-full h-auto rounded-2xl relative z-10"
+              width={600}
+              height={450}
+              format="webp"
+              quality={90}
+            />
+            <div 
+              class="absolute inset-0 rounded-2xl shadow-2xl pointer-events-none"
+              style="background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1));"
+            ></div>
           </div>
+          
+          <!-- Decorative elements - adjusted size -->
+          <div class="absolute -z-1 -top-10 -right-10 w-48 h-48 bg-accent/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="absolute -z-1 -bottom-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
         </div>
 
-        <!-- Image Section - Right Side -->
-        <div class="relative order-2" data-aos="fade-left">
-          <div class="relative w-[350px] h-[350px] mx-auto">
-            <!-- Image container -->
-            <div class="relative rounded-full overflow-hidden bg-white p-1 shadow-[0_10px_20px_-6px_rgba(0,0,0,0.15)]">
-              <div class="w-full h-full rounded-full overflow-hidden relative group">
-                <Image
-                  src={BossImage}
-                  alt="Krystian - Założyciel firmy"
-                  class="w-full h-full object-cover rounded-full transition-transform duration-500 group-hover:scale-110"
-                  width={350}
-                  height={350}
-                  format="webp"
-                  quality={90}
-                />
-                <!-- Overlay effect -->
-                <div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <!-- Text Content -->
+        <div class="text-left" data-aos="fade-left">
+          <span class="text-accent uppercase tracking-wider font-semibold bg-accent/10 px-4 py-2 rounded-full inline-block mb-4">
+            O nas
+          </span>
+          <h1 class="text-4xl md:text-5xl font-bold text-primary mt-4 mb-6">
+            Tworzymy <span class="text-accent">przyszłość</span> cyfrowego biznesu
+          </h1>
+          <p class="text-xl text-secondary mb-8">
+            Od ponad dekady pomagamy firmom w cyfrowej transformacji, dostarczając innowacyjne rozwiązania technologiczne i marketingowe.
+          </p>
+          
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 gap-6">
+            {stats.map(stat => (
+              <div class="bg-white p-4 rounded-xl shadow-sm" data-aos="fade-up">
+                <div class="text-3xl font-bold text-accent mb-1">{stat.number}</div>
+                <div class="text-secondary text-sm">{stat.label}</div>
               </div>
-            </div>
-
-            <!-- Decorative elements -->
-            <div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-accent/5 rounded-full blur-3xl animate-pulse"></div>
-            
-            <!-- Floating dots decoration -->
-            <div class="absolute -right-4 top-10 w-4 h-4 bg-accent/30 rounded-full animate-float blur-sm"></div>
-            <div class="absolute -left-4 bottom-10 w-6 h-6 bg-primary/30 rounded-full animate-float animation-delay-2000 blur-sm"></div>
+            ))}
           </div>
         </div>
       </div>
 
-      <!-- Story Section -->
-      <div class="max-w-4xl mx-auto space-y-8 text-lg text-secondary" data-aos="fade-up">
-        <p>
-          Od zawsze fascynowało mnie, jak technologia zmienia nasze życie. Pierwszą stronę stworzyłem jeszcze w liceum – była daleka od ideału, ale dała mi coś, co okazało się kluczowe: pasję do tworzenia wirtualnych przestrzeni, które naprawdę działają. Z czasem moje hobby zamieniło się w pracę, a potem w firmę, która dzisiaj pomaga innym realizować ich cele w internecie.
-        </p>
-
-        <p>
-          Tworzenie stron internetowych to dla mnie coś więcej niż tylko układanie kodu i obrazków. To budowanie narzędzia, które pozwala Twojemu biznesowi się rozwijać, przyciąga klientów i robi świetne pierwsze wrażenie. Wiem, jak ważne jest to, by strona była zarówno estetyczna, jak i funkcjonalna – bo przecież w dzisiejszym świecie jest Twoją wizytówką.
-        </p>
-
-        <!-- Values Section -->
-        <div class="grid md:grid-cols-3 gap-8 py-12">
-          <div class="glass p-6 rounded-xl">
-            <div class="bg-accent/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-2">Jakość</h3>
-            <p class="text-base">Nie uznaję kompromisów, gdy chodzi o jakość wykonania.</p>
-          </div>
-          <div class="glass p-6 rounded-xl">
-            <div class="bg-accent/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-2">Komunikacja</h3>
-            <p class="text-base">Jasna i przejrzysta komunikacja na każdym etapie projektu.</p>
-          </div>
-          <div class="glass p-6 rounded-xl">
-            <div class="bg-accent/10 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-2">Terminowość</h3>
-            <p class="text-base">Zawsze dotrzymuję ustalonych terminów realizacji.</p>
-          </div>
+      <!-- Values Section -->
+      <div class="mb-24">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6" data-aos="fade-up">
+            Nasze wartości
+          </h2>
+          <p class="text-xl text-secondary max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            Kierujemy się jasnymi zasadami, które pozwalają nam dostarczać najwyższej jakości usługi i budować trwałe relacje z klientami.
+          </p>
         </div>
 
-        <p>
-          Dlaczego warto ze mną współpracować? Bo podchodzę do każdego projektu z pełnym zaangażowaniem. Nie lubię kompromisów, jeśli chodzi o jakość. Zawsze wsłuchuję się w potrzeby moich klientów, tłumaczę zawiłości techniczne w prosty sposób i dotrzymuję ustalonych terminów. Wierzę, że dobra komunikacja to podstawa każdej udanej współpracy.
-        </p>
-
-        <p>
-          Największą satysfakcję daje mi moment, gdy widzę uśmiech na twarzy klienta, który patrzy na efekt końcowy naszej pracy i mówi: "To jest dokładnie to, czego potrzebowałem!"
-        </p>
-
-        <blockquote class="border-l-4 border-accent pl-6 my-8 italic">
-          Jeśli potrzebujesz strony internetowej, która nie tylko będzie wyglądać świetnie, ale też naprawdę działać, zapraszam do kontaktu. Razem stworzymy coś wyjątkowego!
-        </blockquote>
-
-        <p class="text-right font-medium text-primary">
-          Pozdrawiam,<br>
-          Krystian
-        </p>
+        <div class="grid md:grid-cols-3 gap-8">
+          {values.map((value, index) => (
+            <div 
+              class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <div class="bg-accent/10 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  class="h-8 w-8 text-accent" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                  set:html={icons[value.icon]}
+                />
+              </div>
+              <h3 class="text-xl font-bold text-primary mb-4">{value.title}</h3>
+              <p class="text-secondary">{value.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <!-- CTA Section -->
-      <div class="mt-24 text-center" data-aos="fade-up">
+      <div class="text-center glass p-12 rounded-2xl" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-primary mb-6">
+          Gotowy na współpracę?
+        </h2>
+        <p class="text-xl text-secondary mb-8 max-w-2xl mx-auto">
+          Skontaktuj się z nami i opowiedz o swoim projekcie. Pomożemy Ci osiągnąć sukces w świecie cyfrowym.
+        </p>
         <a
           href="/kontakt"
-          class="group relative inline-flex items-center justify-center px-8 py-3 rounded-full text-lg font-medium overflow-hidden bg-accent text-white transition-all duration-300 ease-out hover:scale-105"
+          class="inline-flex items-center justify-center px-8 py-3 rounded-full text-lg font-medium bg-accent text-white hover:scale-105 transition-transform"
         >
-          <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-accent via-accent/80 to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
-          <span class="relative flex items-center">
+          <span class="flex items-center">
             Rozpocznij współpracę
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </span>
@@ -147,27 +151,3 @@ import Footer from '../components/Footer.astro';
 
   <Footer />
 </Layout>
-
-<style>
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.5; }
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-pulse {
-    animation: pulse 4s ease-in-out infinite;
-  }
-
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-</style>

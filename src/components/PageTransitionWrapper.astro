@@ -1,0 +1,28 @@
+---
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+---
+
+<div 
+  class={`page-transition ${className}`}
+  data-transition-animate="slide"
+  data-transition-duration="0.8"
+>
+  <slot />
+</div>
+
+<style>
+  .page-transition {
+    view-transition-name: page;
+    overflow: visible;
+    position: relative;
+    min-height: 100%;
+  }
+
+  div {
+    display: contents;
+  }
+</style> 

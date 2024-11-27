@@ -3,52 +3,47 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
-
-// Import blog post images
 import Post1 from '../assets/images/blog/post1.jpg';
 import Post2 from '../assets/images/blog/post2.jpg';
 import Post3 from '../assets/images/blog/post3.jpg';
 
 const posts = [
   {
-    title: 'Jak wybrać odpowiednią technologię dla swojego projektu?',
-    excerpt: 'Poznaj kluczowe czynniki, które pomogą Ci podjąć właściwą decyzję przy wyborze stosu technologicznego.',
-    image: Post1,
-    category: 'Technologia',
-    author: 'Jan Kowalski',
-    date: '2024-03-15',
-    readTime: '5 min',
-    slug: 'jak-wybrac-technologie'
-  },
-  {
     title: 'Trendy w projektowaniu stron internetowych na rok 2024',
-    excerpt: 'Odkryj najnowsze trendy w web designie, które zdominują internet w nadchodzącym roku.',
-    image: Post2,
+    excerpt: 'Poznaj najnowsze trendy w projektowaniu stron internetowych, które zdominują rok 2024.',
+    image: Post1,
     category: 'Design',
-    author: 'Anna Nowak',
-    date: '2024-03-10',
-    readTime: '4 min',
+    date: '12 marca 2024',
+    readTime: '5 min',
     slug: 'trendy-projektowanie-2024'
   },
   {
-    title: 'Optymalizacja SEO - przewodnik dla początkujących',
-    excerpt: 'Kompleksowy przewodnik po podstawach optymalizacji dla wyszukiwarek internetowych.',
-    image: Post3,
-    category: 'SEO',
-    author: 'Piotr Wiśniewski',
-    date: '2024-03-05',
+    title: 'Jak zwiększyć konwersję w sklepie internetowym?',
+    excerpt: 'Praktyczne wskazówki, które pomogą Ci zwiększyć sprzedaż w Twoim e-commerce.',
+    image: Post2,
+    category: 'E-commerce',
+    date: '8 marca 2024',
     readTime: '7 min',
-    slug: 'optymalizacja-seo-podstawy'
+    slug: 'zwiekszanie-konwersji'
+  },
+  {
+    title: 'Sztuczna inteligencja w marketingu internetowym',
+    excerpt: 'Dowiedz się, jak wykorzystać AI do optymalizacji działań marketingowych.',
+    image: Post3,
+    category: 'Marketing',
+    date: '1 marca 2024',
+    readTime: '6 min',
+    slug: 'ai-w-marketingu'
   }
 ];
 
-const categories = ['Wszystkie', 'Technologia', 'Design', 'SEO', 'E-commerce', 'Marketing'];
+const categories = ['Wszystkie', 'Design', 'E-commerce', 'Marketing', 'Technologia'];
 ---
 
 <Layout title="Blog - Nowoczesna Agencja Interaktywna">
   <Navbar />
   
-  <main class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white overflow-x-hidden">
+  <main class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Hero Section -->
       <div class="text-center mb-16">
@@ -74,51 +69,11 @@ const categories = ['Wszystkie', 'Technologia', 'Design', 'SEO', 'E-commerce', '
         ))}
       </div>
 
-      <!-- Featured Post -->
-      <div class="mb-16" data-aos="fade-up" data-aos-delay="400">
-        <div class="group glass rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-500">
-          <div class="grid md:grid-cols-2 gap-8">
-            <div class="relative overflow-hidden aspect-video md:aspect-auto">
-              <Image
-                src={posts[0].image}
-                alt={posts[0].title}
-                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                width={800}
-                height={600}
-              />
-            </div>
-            <div class="p-8 flex flex-col justify-center">
-              <span class="text-accent text-sm font-semibold tracking-wider uppercase mb-4">{posts[0].category}</span>
-              <h2 class="text-2xl md:text-3xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">
-                {posts[0].title}
-              </h2>
-              <p class="text-secondary mb-6">{posts[0].excerpt}</p>
-              <div class="flex items-center text-sm text-secondary mb-6">
-                <span>{posts[0].author}</span>
-                <span class="mx-2">•</span>
-                <span>{new Date(posts[0].date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                <span class="mx-2">•</span>
-                <span>{posts[0].readTime}</span>
-              </div>
-              <a 
-                href={`/blog/${posts[0].slug}`}
-                class="inline-flex items-center text-accent group-hover:translate-x-2 transition-transform duration-300"
-              >
-                <span class="font-medium">Czytaj więcej</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Posts Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.slice(1).map((post, index) => (
+      <!-- Blog Posts Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {posts.map((post, index) => (
           <article 
-            class="group glass rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-500"
+            class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group"
             data-aos="fade-up"
             data-aos-delay={index * 100}
           >
@@ -129,25 +84,33 @@ const categories = ['Wszystkie', 'Technologia', 'Design', 'SEO', 'E-commerce', '
                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                 width={600}
                 height={400}
+                format="webp"
+                quality={90}
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </div>
-            <div class="p-6">
-              <span class="text-accent text-sm font-semibold tracking-wider uppercase mb-2 block">{post.category}</span>
-              <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-accent transition-colors">
-                {post.title}
-              </h3>
-              <p class="text-secondary mb-4 line-clamp-2">{post.excerpt}</p>
-              <div class="flex items-center text-sm text-secondary mb-4">
-                <span>{post.author}</span>
-                <span class="mx-2">•</span>
-                <span>{new Date(post.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                <span class="mx-2">•</span>
-                <span>{post.readTime}</span>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div class="absolute bottom-4 left-4">
+                  <span class="px-3 py-1 bg-accent/90 text-white text-sm rounded-full">
+                    {post.category}
+                  </span>
+                </div>
               </div>
+            </div>
+            
+            <div class="p-6">
+              <div class="flex items-center text-sm text-secondary mb-4">
+                <span>{post.date}</span>
+                <span class="mx-2">•</span>
+                <span>{post.readTime} czytania</span>
+              </div>
+              <h2 class="text-xl font-bold text-primary mb-3 group-hover:text-accent transition-colors">
+                {post.title}
+              </h2>
+              <p class="text-secondary mb-4">
+                {post.excerpt}
+              </p>
               <a 
                 href={`/blog/${post.slug}`}
-                class="inline-flex items-center text-accent group-hover:translate-x-2 transition-transform duration-300"
+                class="inline-flex items-center text-accent group-hover:translate-x-2 transition-transform"
               >
                 <span class="font-medium">Czytaj więcej</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,22 +123,23 @@ const categories = ['Wszystkie', 'Technologia', 'Design', 'SEO', 'E-commerce', '
       </div>
 
       <!-- Newsletter Section -->
-      <div class="mt-24 text-center glass p-12 rounded-2xl" data-aos="fade-up">
+      <div class="max-w-3xl mx-auto text-center glass p-12 rounded-2xl" data-aos="fade-up">
         <h2 class="text-3xl font-bold text-primary mb-6">
           Zapisz się do newslettera
         </h2>
-        <p class="text-xl text-secondary mb-8 max-w-2xl mx-auto">
-          Otrzymuj najnowsze artykuły i porady bezpośrednio na swoją skrzynkę
+        <p class="text-xl text-secondary mb-8">
+          Bądź na bieżąco z najnowszymi trendami i poradami ze świata technologii
         </p>
-        <form class="max-w-md mx-auto flex gap-4">
-          <input 
-            type="email" 
-            placeholder="Twój adres email" 
-            class="flex-1 px-6 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+        <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+          <input
+            type="email"
+            placeholder="Twój adres email"
+            class="flex-1 px-6 py-3 rounded-full bg-white border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
+            required
           />
-          <button 
+          <button
             type="submit"
-            class="px-8 py-3 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors duration-300"
+            class="px-8 py-3 rounded-full bg-accent text-white hover:scale-105 transition-transform font-medium"
           >
             Zapisz się
           </button>
