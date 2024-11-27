@@ -1,0 +1,292 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import { Image } from 'astro:assets';
+import ThinkImage from '../assets/images/think.png';
+
+const services = [
+  {
+    title: 'Strony WWW',
+    description: 'Projektujemy i wdrażamy responsywne strony internetowe z najnowszymi technologiami.',
+    icon: 'monitor',
+    features: [
+      'Responsywny Design',
+      'Optymalizacja SEO',
+      'Szybkie Ładowanie',
+      'Intuicyjna Nawigacja'
+    ],
+    technologies: ['Astro', 'React', 'Next.js', 'Tailwind CSS']
+  },
+  {
+    title: 'Aplikacje Webowe',
+    description: 'Tworzymy zaawansowane aplikacje internetowe dostosowane do potrzeb Twojego biznesu.',
+    icon: 'settings',
+    features: [
+      'Nowoczesne Technologie',
+      'Skalowalność',
+      'Bezpieczeństwo',
+      'Wydajność'
+    ],
+    technologies: ['React', 'Vue.js', 'Node.js', 'MongoDB']
+  },
+  {
+    title: 'E-commerce',
+    description: 'Budujemy sklepy internetowe, które zwiększają sprzedaż i zadowolenie klientów.',
+    icon: 'shop',
+    features: [
+      'Intuicyjny Panel',
+      'Systemy Płatności',
+      'Integracje',
+      'Analityka'
+    ],
+    technologies: ['Shopify', 'WooCommerce', 'Stripe', 'PostgreSQL']
+  }
+];
+---
+
+<Layout title="Usługi - Nowoczesna Agencja Interaktywna">
+  <Navbar />
+  
+  <main class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Hero Section -->
+      <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
+        <!-- Text Content -->
+        <div class="text-left" data-aos="fade-right">
+          <span class="text-accent uppercase tracking-wider font-semibold bg-accent/10 px-4 py-2 rounded-full inline-block mb-4">Nasze usługi</span>
+          <h1 class="text-4xl md:text-5xl font-bold text-primary mt-4" data-aos="fade-up">
+            Kompleksowe <span class="text-accent">rozwiązania</span>
+          </h1>
+          <p class="text-secondary mt-6 max-w-2xl text-lg">
+            Dostarczamy zaawansowane rozwiązania cyfrowe, które pomogą Twojej firmie osiągnąć sukces w internecie
+          </p>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="relative" data-aos="fade-left">
+          <div class="relative animate-float group">
+            <div class="relative transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+              <Image
+                src={ThinkImage}
+                alt="Services Illustration"
+                class="w-full h-auto rounded-2xl relative z-10"
+                width={800}
+                height={600}
+                format="webp"
+                quality={90}
+              />
+              <!-- Shadow overlay with gradient mask -->
+              <div 
+                class="absolute inset-0 rounded-2xl transition-all duration-500"
+                style="box-shadow: 0 30px 30px -15px rgba(0, 0, 0, 0.9);
+                       mask-image: linear-gradient(to top, black 80%, transparent 1%);"
+              ></div>
+            </div>
+            
+            <!-- Improved gradient overlay -->
+            <div 
+              class="absolute inset-0 rounded-2xl z-20 overflow-hidden animate-shine"
+              style="background: linear-gradient(
+                110deg,
+                transparent 25%,
+                rgba(255, 255, 255, 0.1) 45%,
+                transparent 55%
+              );
+              background-size: 200% 100%;"
+            ></div>
+          </div>
+          
+          <!-- Decorative elements -->
+          <div class="absolute -z-10 -top-20 -right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-blob"></div>
+          <div class="absolute -z-10 -bottom-20 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        </div>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid md:grid-cols-3 gap-8 mb-32">
+        {services.map((service, index) => (
+          <div class="group glass p-8 rounded-2xl transition-all duration-300 hover:shadow-xl hover:-translate-y-2" data-aos="fade-up" data-aos-delay={index * 100}>
+            <div class="bg-accent/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">{service.title}</h3>
+            <p class="text-secondary mb-6">{service.description}</p>
+            <ul class="space-y-3 mb-8">
+              {service.features.map((feature) => (
+                <li class="flex items-center text-secondary">
+                  <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            <div class="flex flex-wrap gap-2 mb-6">
+              {service.technologies.map((tech) => (
+                <span class="px-3 py-1 bg-accent/10 rounded-full text-accent text-sm">
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <a 
+              href="#" 
+              class="inline-flex items-center text-accent group-hover:translate-x-2 transition-transform duration-300"
+            >
+              <span class="font-medium">Dowiedz się więcej</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <!-- Process Section -->
+      <div class="text-center mb-24">
+        <span class="text-accent uppercase tracking-wider font-semibold bg-accent/10 px-4 py-2 rounded-full inline-block mb-4">Proces</span>
+        <h2 class="text-4xl font-bold text-primary mt-4 mb-16">Jak działamy?</h2>
+        
+        <div class="grid md:grid-cols-4 gap-12 relative">
+          {[
+            { 
+              step: '01',
+              title: 'Analiza',
+              desc: 'Poznajemy Twoje potrzeby i cele biznesowe',
+              icon: (
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              )
+            },
+            { 
+              step: '02',
+              title: 'Strategia',
+              desc: 'Planujemy optymalne rozwiązanie technologiczne',
+              icon: (
+                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              )
+            },
+            { 
+              step: '03',
+              title: 'Realizacja',
+              desc: 'Wdrażamy projekt zgodnie z najlepszymi praktykami',
+              icon: (
+                <path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              )
+            },
+            { 
+              step: '04',
+              title: 'Wsparcie',
+              desc: 'Zapewniamy ciągł�� opiekę techniczną i rozwój',
+              icon: (
+                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              )
+            }
+          ].map((phase, index) => (
+            <div 
+              class="group glass p-8 rounded-2xl relative hover:-translate-y-2 transition-all duration-300" 
+              data-aos="fade-up" 
+              data-aos-delay={index * 100}
+            >
+              <!-- Step number -->
+              <div class="absolute -top-4 -left-4 bg-accent/10 w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <span class="text-accent font-bold">{phase.step}</span>
+              </div>
+
+              <!-- Icon -->
+              <div class="bg-accent/5 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  class="h-8 w-8 text-accent" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                >
+                  {phase.icon}
+                </svg>
+              </div>
+
+              <h3 class="text-xl font-bold text-primary mb-3 group-hover:text-accent transition-colors">{phase.title}</h3>
+              <p class="text-secondary">{phase.desc}</p>
+              
+              {index < 3 && (
+                <div class="hidden md:block absolute top-1/2 -right-6 w-12 h-0.5 bg-accent/10">
+                  <div class="absolute right-0 -top-1 w-2 h-2 rounded-full bg-accent/20"></div>
+                </div>
+              )}
+            </div>
+          ))}
+
+          <!-- Connection line -->
+          <div class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-accent/10 -z-10"></div>
+        </div>
+
+        <!-- Additional description -->
+        <div class="mt-16 max-w-3xl mx-auto text-center">
+          <p class="text-secondary text-lg">
+            Nasz sprawdzony proces pozwala nam dostarczać wysokiej jakości rozwiązania, które spełniają oczekiwania klientów i realizują cele biznesowe.
+          </p>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="glass p-12 rounded-2xl text-center" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
+          Gotowy na rozpoczęcie projektu?
+        </h2>
+        <p class="text-xl text-secondary mb-8 max-w-2xl mx-auto">
+          Skontaktuj się z nami, aby omówić Twój projekt i rozpocząć współpracę
+        </p>
+        <a
+          href="/kontakt"
+          class="group relative inline-flex items-center justify-center px-8 py-3 rounded-full text-lg font-medium overflow-hidden bg-accent text-white transition-all duration-300 ease-out hover:scale-105"
+        >
+          <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-accent via-accent/80 to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+          <span class="relative flex items-center">
+            Rozpocznij projekt
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+
+  @keyframes blob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(20px, -20px) scale(1.1); }
+    50% { transform: translate(-20px, 20px) scale(0.9); }
+    75% { transform: translate(20px, 20px) scale(1.05); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-shine {
+    animation: shine 8s linear infinite;
+  }
+
+  .animate-blob {
+    animation: blob 15s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+</style>

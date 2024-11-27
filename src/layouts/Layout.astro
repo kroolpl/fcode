@@ -1,0 +1,151 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import FloatingMenu from '../components/FloatingMenu.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Nowoczesna agencja interaktywna - tworzymy strony internetowe i aplikacje webowe" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+    <link rel="stylesheet" href="node_modules/aos/dist/aos.css" />
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+  <body class="bg-light">
+    <slot />
+    <FloatingWhatsApp />
+    <FloatingMenu />
+    <script>
+      import AOS from 'aos';
+      document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({
+          duration: 800,
+          once: true,
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --accent: 239, 35, 60;
+    --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #4a90e2 30%, white 60%);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Modern CTA Button Animations */
+  .cta-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
+  }
+
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    transition: transform 0.6s ease;
+    z-index: -1;
+  }
+
+  .cta-button:hover::before {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(var(--accent), 0.5);
+  }
+
+  .cta-button:active {
+    transform: translateY(0);
+  }
+
+  /* Secondary CTA Button */
+  .cta-button-secondary {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
+  }
+
+  .cta-button-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s ease;
+    z-index: -1;
+  }
+
+  .cta-button-secondary:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Pulse Animation for Important CTAs */
+  .cta-pulse {
+    animation: ctaPulse 2s infinite;
+  }
+
+  @keyframes ctaPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(var(--accent), 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(var(--accent), 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(var(--accent), 0);
+    }
+  }
+
+  /* Hover Effect for Cards */
+  .hover-card {
+    transition: all 0.3s ease;
+  }
+
+  .hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+  }
+</style></content>

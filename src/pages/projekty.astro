@@ -1,0 +1,165 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'E-commerce Premium',
+    category: 'Sklep internetowy',
+    image: '/projects/ecommerce.jpg',
+    description: 'Nowoczesna platforma e-commerce z zaawansowanymi funkcjami',
+    technologies: ['Next.js', 'Tailwind CSS', 'Stripe'],
+    link: '#'
+  },
+  {
+    title: 'System CRM',
+    category: 'Aplikacja webowa',
+    image: '/projects/crm.jpg',
+    description: 'Kompleksowy system zarządzania relacjami z klientami',
+    technologies: ['React', 'Node.js', 'MongoDB'],
+    link: '#'
+  },
+  {
+    title: 'Portal Nieruchomości',
+    category: 'Portal',
+    image: '/projects/real-estate.jpg',
+    description: 'Zaawansowana wyszukiwarka nieruchomości',
+    technologies: ['Vue.js', 'Laravel', 'PostgreSQL'],
+    link: '#'
+  },
+  {
+    title: 'Aplikacja Fitness',
+    category: 'Aplikacja mobilna',
+    image: '/projects/fitness.jpg',
+    description: 'Aplikacja do śledzenia treningów i diety',
+    technologies: ['React Native', 'Firebase', 'Redux'],
+    link: '#'
+  },
+  {
+    title: 'Blog Kulinarny',
+    category: 'Blog',
+    image: '/projects/blog.jpg',
+    description: 'Responsywna platforma blogowa z systemem CMS',
+    technologies: ['Astro', 'Tailwind CSS', 'MDX'],
+    link: '#'
+  },
+  {
+    title: 'System Rezerwacji',
+    category: 'Aplikacja webowa',
+    image: '/projects/booking.jpg',
+    description: 'System rezerwacji dla restauracji',
+    technologies: ['Angular', 'Express', 'MySQL'],
+    link: '#'
+  }
+];
+
+const categories = ['Wszystkie', ...new Set(projects.map(project => project.category))];
+---
+
+<Layout title="Projekty - Nowoczesna Agencja Interaktywna">
+  <Navbar />
+  
+  <main class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Hero Section -->
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-6">
+          Nasze <span class="text-accent">realizacje</span>
+        </h1>
+        <p class="text-xl text-secondary max-w-3xl mx-auto">
+          Zobacz wybrane projekty, które zrealizowaliśmy dla naszych klientów
+        </p>
+      </div>
+
+      <!-- Categories Filter -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up">
+        {categories.map((category) => (
+          <button
+            class="px-6 py-2 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all"
+            data-category={category}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project, index) => (
+          <ProjectCard
+            title={project.title}
+            category={project.category}
+            image={project.image}
+            description={project.description}
+            technologies={project.technologies}
+            link={project.link}
+            index={index}
+          />
+        ))}
+      </div>
+
+      <!-- CTA Section -->
+      <div class="text-center mt-20" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-primary mb-6">Masz projekt do zrealizowania?</h2>
+        <a
+          href="/kontakt"
+          class="inline-block bg-accent text-white px-8 py-3 rounded-full text-lg hover:bg-opacity-90 transition-all"
+        >
+          Porozmawiajmy o nim
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll('[data-category]');
+  const projects = document.querySelectorAll('[data-project-category]');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.getAttribute('data-category');
+      
+      // Update active button state
+      buttons.forEach(btn => btn.classList.remove('bg-primary', 'text-white'));
+      button.classList.add('bg-primary', 'text-white');
+
+      // Filter projects
+      projects.forEach(project => {
+        const projectCategory = project.getAttribute('data-project-category');
+        if (category === 'Wszystkie' || category === projectCategory) {
+          project.style.display = 'block';
+          project.classList.remove('fade-out');
+          project.classList.add('fade-in');
+        } else {
+          project.classList.remove('fade-in');
+          project.classList.add('fade-out');
+          setTimeout(() => {
+            project.style.display = 'none';
+          }, 300);
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .fade-in {
+    animation: fadeIn 0.3s ease-in forwards;
+  }
+
+  .fade-out {
+    animation: fadeOut 0.3s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.95); }
+  }
+</style>

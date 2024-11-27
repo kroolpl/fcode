@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+
+// Import your project images
+import Project1 from '../assets/images/projects/project1.jpg';
+import Project2 from '../assets/images/projects/project2.jpg';
+import Project3 from '../assets/images/projects/project3.jpg';
+// Add more project images as needed
+
+const projects = [
+  {
+    title: 'E-commerce Premium',
+    category: 'Sklep internetowy',
+    description: 'Nowoczesna platforma e-commerce z zaawansowanymi funkcjami i eleganckim designem.',
+    image: Project1,
+    technologies: ['Next.js', 'Tailwind CSS', 'Stripe'],
+    link: '#'
+  },
+  {
+    title: 'System CRM',
+    category: 'Aplikacja webowa',
+    description: 'Zaawansowany system zarządzania relacjami z klientami dla firmy z branży finansowej.',
+    image: Project2,
+    technologies: ['React', 'Node.js', 'MongoDB'],
+    link: '#'
+  },
+  {
+    title: 'Portfolio Artysty',
+    category: 'Strona WWW',
+    description: 'Minimalistyczne portfolio z galerią prac i systemem rezerwacji.',
+    image: Project3,
+    technologies: ['Astro', 'Alpine.js', 'Supabase'],
+    link: '#'
+  },
+  // Add more projects as needed
+];
+
+const categories = ['Wszystkie', 'Sklep internetowy', 'Aplikacja webowa', 'Strona WWW'];
+---
+
+<Layout title="Realizacje - Nowoczesna Agencja Interaktywna">
+  <Navbar />
+  
+  <main class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Hero Section -->
+      <div class="text-center mb-16">
+        <span class="text-accent uppercase tracking-wider font-semibold bg-accent/10 px-4 py-2 rounded-full inline-block mb-4" data-aos="fade-up">
+          Nasze realizacje
+        </span>
+        <h1 class="text-4xl md:text-5xl font-bold text-primary mt-4 mb-6" data-aos="fade-up" data-aos-delay="100">
+          Projekty, które <span class="text-accent">zmieniają</span> biznes
+        </h1>
+        <p class="text-xl text-secondary max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+          Zobacz, jak pomagamy naszym klientom osiągać sukces w świecie cyfrowym
+        </p>
+      </div>
+
+      <!-- Filters -->
+      <div class="flex flex-wrap justify-center gap-4 mb-16" data-aos="fade-up" data-aos-delay="300">
+        {categories.map((category, index) => (
+          <button 
+            class="px-6 py-2 rounded-full text-primary hover:text-accent border border-primary/20 hover:border-accent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/20"
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project, index) => (
+          <div 
+            class="group glass rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-500"
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
+          >
+            <!-- Project Image -->
+            <div class="relative overflow-hidden aspect-video">
+              <Image
+                src={project.image}
+                alt={project.title}
+                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                width={600}
+                height={400}
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                <div class="text-white">
+                  <p class="text-sm uppercase tracking-wider mb-2">{project.category}</p>
+                  <h3 class="text-xl font-bold">{project.title}</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project Info -->
+            <div class="p-6">
+              <div class="mb-4">
+                <p class="text-secondary">{project.description}</p>
+              </div>
+              
+              <!-- Technologies -->
+              <div class="flex flex-wrap gap-2 mb-6">
+                {project.technologies.map((tech) => (
+                  <span class="px-3 py-1 bg-accent/10 rounded-full text-accent text-sm">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <!-- Link -->
+              <a 
+                href={project.link}
+                class="inline-flex items-center text-accent group-hover:translate-x-2 transition-transform duration-300"
+              >
+                <span class="font-medium">Zobacz więcej</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-24 text-center glass p-12 rounded-2xl" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-primary mb-6">
+          Chcesz zrealizować podobny projekt?
+        </h2>
+        <p class="text-xl text-secondary mb-8 max-w-2xl mx-auto">
+          Skontaktuj się z nami i opowiedz o swoim pomyśle. Pomożemy Ci go zrealizować.
+        </p>
+        <a
+          href="/kontakt"
+          class="group relative inline-flex items-center justify-center px-8 py-3 rounded-full text-lg font-medium overflow-hidden bg-accent text-white transition-all duration-300 ease-out hover:scale-105"
+        >
+          <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-accent via-accent/80 to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+          <span class="relative flex items-center">
+            Rozpocznij projekt
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+</style> 

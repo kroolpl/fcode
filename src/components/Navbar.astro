@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import Logo from '../assets/images/logo.png';
+---
+
+<nav class="fixed w-full z-50 bg-white/80 backdrop-blur-lg border-b border-gray-200/30 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <!-- Logo on the left -->
+      <div class="flex-shrink-0">
+        <a href="/" class="flex items-center">
+          <Image 
+            src={Logo} 
+            alt="Company Logo"
+            class="h-8 w-auto hover:opacity-80 transition-opacity"
+            width={128}
+            height={32}
+          />
+        </a>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center space-x-8">
+        <a href="/" class="text-primary hover:text-accent transition-colors font-medium">Strona Główna</a>
+        <a href="/uslugi" class="text-primary hover:text-accent transition-colors font-medium">Usługi</a>
+        <a href="/o-nas" class="text-primary hover:text-accent transition-colors font-medium">O nas</a>
+        <a href="/realizacje" class="text-primary hover:text-accent transition-colors font-medium">Realizacje</a>
+        <a href="/blog" class="text-primary hover:text-accent transition-colors font-medium">Blog</a>
+        <a href="/kontakt" class="text-primary hover:text-accent transition-colors font-medium">Kontakt</a>
+      </div>
+      
+      <!-- Desktop Action buttons -->
+      <div class="hidden lg:flex items-center space-x-4">
+        <a 
+          href="/kontakt" 
+          class="group relative inline-flex items-center px-6 py-3 bg-accent text-white hover:bg-accent/90 transition-all duration-300 font-medium rounded-lg animate-subtle-pulse hover:scale-105"
+        >
+          <span class="relative flex items-center">
+            Darmowa Wycena
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  @keyframes subtle-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(239, 35, 60, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(239, 35, 60, 0);
+    }
+  }
+
+  .animate-subtle-pulse {
+    animation: subtle-pulse 3s infinite;
+  }
+
+  /* Optional: Pause animation on hover */
+  .animate-subtle-pulse:hover {
+    animation-play-state: paused;
+  }
+</style>

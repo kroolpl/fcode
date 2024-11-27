@@ -1,0 +1,56 @@
+---
+interface Props {
+  title: string;
+  category: string;
+  image: string;
+  description: string;
+  technologies: string[];
+  link: string;
+  index: number;
+}
+
+const { title, category, image, description, technologies, link, index } = Astro.props;
+---
+
+<article 
+  class="glass rounded-2xl overflow-hidden group hover:shadow-xl transition-all duration-300"
+  data-project-category={category}
+  data-aos="fade-up"
+  data-aos-delay={index * 100}
+>
+  <div class="relative overflow-hidden aspect-video">
+    <img
+      src={image}
+      alt={title}
+      class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div class="absolute bottom-4 left-4 right-4">
+        <div class="flex flex-wrap gap-2">
+          {technologies.map((tech) => (
+            <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="p-6">
+    <div class="mb-4">
+      <span class="text-accent text-sm font-medium">{category}</span>
+      <h3 class="text-xl font-bold text-primary mt-1">{title}</h3>
+    </div>
+    <p class="text-secondary mb-6">{description}</p>
+    <a
+      href={link}
+      class="inline-flex items-center text-accent hover:text-primary transition-colors"
+    >
+      Zobacz szczegóły
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+    </a>
+  </div>
+</article>
