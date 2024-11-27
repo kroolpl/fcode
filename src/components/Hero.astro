@@ -1,6 +1,13 @@
 ---
-import { Image } from 'astro:assets';
+import ResponsiveImage from './ResponsiveImage.astro';
 import HeroImage from '../assets/images/hero.png';
+
+// Define image sizes for different breakpoints
+const imageSizes = {
+  mobile: 400,
+  tablet: 600,
+  desktop: 800
+};
 ---
 
 <section class="relative min-h-screen flex items-center overflow-x-hidden">
@@ -48,17 +55,18 @@ import HeroImage from '../assets/images/hero.png';
       <div class="relative" data-aos="fade-left">
         <div class="relative animate-float group">
           <div class="relative transition-transform duration-500 ease-out group-hover:scale-[1.02]">
-            <Image
+            <ResponsiveImage
               src={HeroImage}
               alt="Hero Image"
-              class="w-full h-auto rounded-2xl relative z-10"
-              width={800}
-              height={600}
-              loading="eager"
-              decoding="sync"
-              format="webp"
-              quality={90}
+              class="rounded-2xl relative z-10"
+              sizes={{
+                mobile: 400,
+                tablet: 600,
+                desktop: 800
+              }}
+              priority={true}
             />
+            
             <!-- Shadow overlay with gradient mask -->
             <div 
               class="absolute inset-0 rounded-2xl transition-all duration-500"

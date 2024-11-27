@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  class?: string;
+  sizes?: {
+    mobile?: number;
+    tablet?: number;
+    desktop: number;
+  };
+  priority?: boolean;
+}
+
+const { 
+  src, 
+  alt, 
+  class: className,
+  sizes = { mobile: 400, tablet: 600, desktop: 800 },
+  priority = false 
+} = Astro.props;
+
+const aspectRatio = src.height / src.width;
+---
+
+<picture>
+  <source
+    media="(min-width: 1024px)"
+    srcset={`${src.src}?w=${sizes.desktop}&format=webp&q=90`}
+  />
+  {sizes.tablet && (
+    <source
+      media="(min-width: 640px)"
+      srcset={`${src.src}?w=${sizes.tablet}&format=webp&q=90`}
+    />
+  )}
+  <Image
+    src={src}
+    alt={alt}
+    class={`w-full h-auto ${className}`}
+    width={sizes.desktop}
+    height={Math.round(sizes.desktop * aspectRatio)}
+    loading={priority ? "eager" : "lazy"}
+    decoding={priority ? "sync" : "async"}
+    format="webp"
+    quality={90}
+    densities={[1, 2]}
+    sizes={`
+      (min-width: 1024px) ${sizes.desktop}px,
+      ${sizes.tablet ? `(min-width: 640px) ${sizes.tablet}px,` : ''}
+      ${sizes.mobile ? `${sizes.mobile}px` : `${sizes.desktop}px`}
+    `}
+  />
+</picture> 
