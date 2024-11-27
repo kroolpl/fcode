@@ -2,6 +2,7 @@
 import { ViewTransitions } from 'astro:transitions';
 import FloatingMenu from '../components/FloatingMenu.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import FontLoader from '../components/FontLoader.astro';
 
 interface Props {
   title: string;
@@ -17,24 +18,26 @@ const { title } = Astro.props;
     <meta name="description" content="Nowoczesna agencja interaktywna - tworzymy strony internetowe i aplikacje webowe" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />
-    <link rel="stylesheet" href="node_modules/aos/dist/aos.css" />
+    <FontLoader />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preload" href="/assets/logo.png" as="image" />
   </head>
   <body class="bg-light">
     <slot />
     <FloatingWhatsApp />
     <FloatingMenu />
     <script>
-      import AOS from 'aos';
-      document.addEventListener('DOMContentLoaded', () => {
-        AOS.init({
-          duration: 800,
-          once: true,
-        });
+      document.addEventListener('DOMContentLoaded', async () => {
+        if (document.querySelector('[data-aos]')) {
+          const AOS = (await import('aos')).default;
+          AOS.init({
+            duration: 800,
+            once: true,
+          });
+        }
       });
     </script>
   </body>

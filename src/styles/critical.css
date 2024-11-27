@@ -1,0 +1,18 @@
+/* Add only the most critical styles needed for above-the-fold content */
+:root {
+  --accent: 239, 35, 60;
+  --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #4a90e2 30%, white 60%);
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+} 
