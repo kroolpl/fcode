@@ -10,13 +10,22 @@ const imageSizes = {
 };
 ---
 
-<section class="relative min-h-screen flex items-center overflow-x-hidden">
+<section 
+  class="relative min-h-screen flex items-center overflow-x-hidden hero-transition"
+  transition:animate="slide"
+  transition:duration="0.8"
+>
   <div class="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-5"></div>
   
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 w-full">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Text Content -->
-      <div class="text-left" data-aos="fade-right">
+      <div 
+        class="text-left" 
+        data-aos="fade-right" 
+        data-aos-duration="1000"
+        data-aos-delay="200"
+      >
         <h1 class="text-5xl md:text-7xl font-bold text-primary mb-6">
           Tworzymy <span class="text-accent">cyfrowe</span> doświadczenia
         </h1>
@@ -52,7 +61,12 @@ const imageSizes = {
       </div>
 
       <!-- Hero Image -->
-      <div class="relative" data-aos="fade-left">
+      <div 
+        class="relative" 
+        data-aos="fade-left" 
+        data-aos-duration="1000"
+        data-aos-delay="400"
+      >
         <div class="relative animate-float group">
           <div class="relative transition-transform duration-500 ease-out group-hover:scale-[1.02]">
             <ResponsiveImage

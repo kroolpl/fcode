@@ -14,9 +14,14 @@ const { title, category, image, description, technologies, link, index } = Astro
 
 <article 
   class="glass rounded-2xl overflow-hidden group hover:shadow-xl transition-all duration-300"
+  transition:name={`project-${index}`}
+  transition:animate="slide"
+  transition:duration="0.5"
   data-project-category={category}
   data-aos="fade-up"
-  data-aos-delay={index * 100}
+  data-aos-delay={index * 200}
+  data-aos-duration="800"
+  data-aos-anchor-placement="top-bottom"
 >
   <div class="relative overflow-hidden aspect-video">
     <img
