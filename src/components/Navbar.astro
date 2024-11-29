@@ -1,147 +1,134 @@
 ---
 import { Image } from 'astro:assets';
-import Logo from '../assets/images/logo.png';
+import logo from '../assets/images/logo.png';
+
+const menuItems = [
+  { href: '/', text: 'Strona główna' },
+  { href: '/uslugi', text: 'Usługi' },
+  { href: '/realizacje', text: 'Realizacje' },
+  { href: '/o-nas', text: 'O nas' },
+  { href: '/blog', text: 'Blog' },
+  { href: '/kontakt', text: 'Kontakt' }
+];
 
 const currentPath = Astro.url.pathname;
-const normalizePath = (path: string) => path.replace(/\/+$/, '') || '/';
-const isActive = (path: string) => normalizePath(currentPath) === normalizePath(path);
-
-// Modified navigation items to remove Kontakt from regular menu
-const navItems = [
-  { path: '/', label: 'Strona Główna' },
-  { path: '/uslugi', label: 'Usługi' },
-  { path: '/o-nas', label: 'O nas' },
-  { path: '/realizacje', label: 'Realizacje' },
-  { path: '/blog', label: 'Blog' }
-];
 ---
 
-<nav class="fixed w-full z-50 bg-white border-b border-gray-100">
+<nav
+  class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10"
+  x-data="{ isOpen: false }"
+  @keydown.escape="isOpen = false"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-20">
       <!-- Logo -->
-      <a href="/" class="flex items-center" aria-label="Strona główna">
-        <Image 
-          src={Logo} 
-          alt="Logo firmy Nowoczesna Agencja"
-          class="h-7 w-auto"
-          width={256}
-          height={64}
-          loading="eager"
+      <a href="/" class="flex items-center">
+        <Image
+          src={logo}
+          alt="Logo"
+          class="h-8 w-auto transition-transform duration-300 hover:scale-105"
+          width={120}
+          height={32}
         />
       </a>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden lg:flex items-center gap-1">
-        <nav class="flex items-center" aria-label="Menu główne">
-          {navItems.map(({ path, label }) => {
-            const active = isActive(path);
-            return (
-              <a 
-                href={path} 
-                class:list={[
-                  "px-4 py-2 text-sm font-medium rounded-lg",
-                  {
-                    "text-white bg-accent": active,
-                    "text-gray-600 hover:text-accent hover:bg-gray-50": !active
-                  }
-                ]}
-                data-nav-link
-                data-path={path}
-                data-active={active}
-              >
-                {label}
-              </a>
-            );
-          })}
-          <!-- CTA Button -->
-          <a 
-            href="/kontakt" 
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-8">
+        {menuItems.map((item) => (
+          <a
+            href={item.href}
             class:list={[
-              "ml-4 px-5 py-2 text-sm font-medium rounded-lg cta-breath",
-              {
-                "text-white bg-accent": isActive('/kontakt'),
-                "bg-accent text-white hover:bg-accent/90": !isActive('/kontakt')
-              }
+              'text-base font-medium transition-all duration-300 hover:text-accent relative group',
+              currentPath === item.href ? 'text-accent' : 'text-primary'
             ]}
-            data-nav-link
-            data-path="/kontakt"
-            data-active={isActive('/kontakt')}
           >
-            Kontakt
+            {item.text}
+            <span class:list={[
+              'absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full',
+              currentPath === item.href ? 'w-full' : 'w-0'
+            ]}></span>
           </a>
-        </nav>
+        ))}
+        <a
+          href="/kontakt"
+          class="nav-cta-button px-6 py-2 text-white rounded-full font-medium transition-all duration-300"
+        >
+          Rozpocznij projekt
+        </a>
       </div>
 
-      <!-- Mobile menu button -->
-      <button 
-        type="button" 
-        class="lg:hidden p-2 text-gray-600"
-        aria-controls="mobile-menu"
-        aria-expanded="false"
-        x-data
-        @click="$store.mobileMenu.toggle()"
-      >
-        <span class="sr-only">Otwórz menu</span>
-        <svg 
-          class="h-6 w-6"
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button
+          @click="isOpen = !isOpen"
+          class="text-primary p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300"
+          aria-label="Toggle menu"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
+          <svg
+            x-show="!isOpen"
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+          <svg
+            x-show="isOpen"
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            x-cloak
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- Mobile menu -->
-  <div 
-    class="lg:hidden absolute right-0 w-full"
-    id="mobile-menu"
-    x-data
-    x-show="$store.mobileMenu.isOpen"
+  <!-- Mobile Menu -->
+  <div
+    x-show="isOpen"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 -translate-y-4"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 -translate-y-4"
+    class="md:hidden glass border-t border-white/10"
     x-cloak
   >
-    <div class="px-4 py-3 bg-white border-t border-gray-100">
-      {navItems.map(({ path, label }) => {
-        const active = isActive(path);
-        return (
-          <a 
-            href={path} 
-            class:list={[
-              "block py-2 text-sm font-medium rounded-lg text-right",
-              {
-                "text-white bg-accent w-fit px-4 ml-auto": active,
-                "text-gray-600 hover:text-accent w-full": !active
-              }
-            ]}
-            data-nav-link
-            data-path={path}
-            data-active={active}
-            @click="$store.mobileMenu.close()"
-          >
-            {label}
-          </a>
-        );
-      })}
-      
-      <!-- Mobile CTA -->
-      <a 
-        href="/kontakt" 
-        class:list={[
-          "mt-4 block w-fit px-4 py-2 text-sm font-medium rounded-lg cta-breath ml-auto",
-          {
-            "text-white bg-accent": isActive('/kontakt'),
-            "bg-accent text-white hover:bg-accent/90": !isActive('/kontakt')
-          }
-        ]}
-        data-nav-link
-        data-path="/kontakt"
-        data-active={isActive('/kontakt')}
-        @click="$store.mobileMenu.close()"
+    <div class="px-4 pt-2 pb-3 space-y-1">
+      {menuItems.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'block px-3 py-2 rounded-lg text-base font-medium transition-colors duration-300',
+            currentPath === item.href
+              ? 'text-accent bg-accent/10'
+              : 'text-primary hover:bg-gray-100'
+          ]}
+        >
+          {item.text}
+        </a>
+      ))}
+      <a
+        href="/kontakt"
+        class="nav-cta-button block px-3 py-2 rounded-lg text-base font-medium text-white transition-colors duration-300 mt-4"
       >
-        Kontakt
+        Rozpocznij projekt
       </a>
     </div>
   </div>
@@ -152,65 +139,31 @@ const navItems = [
     display: none !important;
   }
 
-  /* Subtle breathing animation for CTA */
-  .cta-breath {
-    animation: breathe 3s ease-in-out infinite;
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
-  @keyframes breathe {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
+  .nav-cta-button {
+    background-color: #203951;
+    animation: subtle-pulse 2s infinite;
   }
 
-  /* Disable animation when user prefers reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .cta-breath {
-      animation: none;
+  .nav-cta-button:hover {
+    background-color: #2a4b6a;
+    transform: translateY(-1px);
+  }
+
+  @keyframes subtle-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(32, 57, 81, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(32, 57, 81, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(32, 57, 81, 0);
     }
   }
 </style>
-
-<script>
-  // Active state management
-  const updateActiveStates = () => {
-    const currentPath = normalizePath(window.location.pathname);
-    const navLinks = document.querySelectorAll('[data-nav-link]');
-    
-    navLinks.forEach(link => {
-      const path = link.getAttribute('data-path');
-      const isActive = currentPath === normalizePath(path);
-      link.setAttribute('data-active', String(isActive));
-    });
-  };
-
-  const normalizePath = (path) => path.replace(/\/+$/, '') || '/';
-
-  document.addEventListener('astro:page-load', updateActiveStates);
-  
-  // Mobile menu management
-  import Alpine from 'alpinejs';
-  window.Alpine = Alpine;
-  
-  Alpine.store('mobileMenu', {
-    isOpen: false,
-    toggle() {
-      this.isOpen = !this.isOpen;
-      document.body.style.overflow = this.isOpen ? 'hidden' : '';
-    },
-    close() {
-      this.isOpen = false;
-      document.body.style.overflow = '';
-    }
-  });
-  
-  // Add event listener to close menu on navigation
-  document.addEventListener('astro:page-load', () => {
-    Alpine.store('mobileMenu').close();
-  });
-  
-  Alpine.start();
-</script>

@@ -1,28 +1,188 @@
 ---
 interface Props {
   className?: string;
+  transitionName?: string;
+  animation?: 'fade' | 'slide' | 'scale' | 'flip' | 'push';
 }
 
-const { className = "" } = Astro.props;
+const { 
+  className = "",
+  transitionName = "page",
+  animation = "slide"
+} = Astro.props;
+
+const getAnimationClass = (type: string) => {
+  switch (type) {
+    case 'fade': return 'transition-fade';
+    case 'scale': return 'transition-scale';
+    case 'flip': return 'transition-flip';
+    case 'push': return 'transition-push';
+    default: return 'transition-slide';
+  }
+};
 ---
 
 <div 
-  class={`page-transition ${className}`}
-  data-transition-animate="slide"
-  data-transition-duration="0.8"
+  class={`page-wrapper ${className} ${getAnimationClass(animation)}`}
+  data-transition-name={transitionName}
+  data-animation={animation}
 >
   <slot />
 </div>
 
 <style>
-  .page-transition {
-    view-transition-name: page;
-    overflow: visible;
+  .page-wrapper {
     position: relative;
     min-height: 100%;
+    width: 100%;
+    view-transition-name: var(--transition-name, page);
   }
 
-  div {
-    display: contents;
+  /* Base transition styles */
+  .page-wrapper {
+    animation: var(--page-animation) var(--transition-duration, 0.5s) var(--transition-timing, cubic-bezier(0.4, 0, 0.2, 1));
   }
-</style> 
+
+  /* Slide transition */
+  .transition-slide {
+    --page-animation: slide-in;
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Scale transition */
+  .transition-scale {
+    --page-animation: scale-in;
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Fade transition */
+  .transition-fade {
+    --page-animation: fade-in;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Flip transition */
+  .transition-flip {
+    --page-animation: flip-in;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+  }
+
+  @keyframes flip-in {
+    from {
+      opacity: 0;
+      transform: rotateY(-8deg);
+    }
+    to {
+      opacity: 1;
+      transform: rotateY(0);
+    }
+  }
+
+  /* Push transition */
+  .transition-push {
+    --page-animation: push-in;
+  }
+
+  @keyframes push-in {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* View Transition API integration */
+  ::view-transition-old(*) {
+    animation: var(--page-exit, fade-out) var(--transition-duration, 0.5s) var(--transition-timing, cubic-bezier(0.4, 0, 0.2, 1));
+  }
+
+  ::view-transition-new(*) {
+    animation: var(--page-enter, fade-in) var(--transition-duration, 0.5s) var(--transition-timing, cubic-bezier(0.4, 0, 0.2, 1));
+  }
+
+  @keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  /* Ensure smooth transitions */
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      view-transition-name: none;
+    }
+    
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation-duration: var(--transition-duration, 0.5s);
+    }
+  }
+</style>
+
+<script>
+  // Handle transition animations
+  document.addEventListener('astro:page-load', () => {
+    const wrapper = document.querySelector('.page-wrapper');
+    if (!wrapper) return;
+
+    const transitionName = wrapper.getAttribute('data-transition-name');
+    const animation = wrapper.getAttribute('data-animation');
+
+    wrapper.style.setProperty('--transition-name', transitionName);
+    
+    // Set animation variables based on type
+    switch (animation) {
+      case 'fade':
+        wrapper.style.setProperty('--page-enter', 'fade-in');
+        wrapper.style.setProperty('--page-exit', 'fade-out');
+        break;
+      case 'scale':
+        wrapper.style.setProperty('--page-enter', 'scale-in');
+        wrapper.style.setProperty('--page-exit', 'fade-out');
+        break;
+      case 'flip':
+        wrapper.style.setProperty('--page-enter', 'flip-in');
+        wrapper.style.setProperty('--page-exit', 'fade-out');
+        break;
+      case 'push':
+        wrapper.style.setProperty('--page-enter', 'push-in');
+        wrapper.style.setProperty('--page-exit', 'fade-out');
+        break;
+      default:
+        wrapper.style.setProperty('--page-enter', 'slide-in');
+        wrapper.style.setProperty('--page-exit', 'fade-out');
+    }
+  });
+</script>

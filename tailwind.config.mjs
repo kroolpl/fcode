@@ -8,6 +8,7 @@ export default {
         secondary: '#8D99AE',
         accent: '#EF233C',
         light: '#EDF2F4',
+        'cta': '#00b4d8',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

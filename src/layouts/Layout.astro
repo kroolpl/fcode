@@ -1,5 +1,6 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import Navbar from '../components/Navbar.astro';
 import FloatingMenu from '../components/FloatingMenu.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import FontLoader from '../components/FontLoader.astro';
@@ -20,13 +21,19 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title transition:animate="slide">{title}</title>
-    <ViewTransitions />
+    <title transition:animate="fade">{title}</title>
+    <ViewTransitions fallback="animate" />
     <FontLoader />
     <link rel="preload" href="/assets/logo.png" as="image" />
+    <script>
+      import Alpine from 'alpinejs';
+      window.Alpine = Alpine;
+      Alpine.start();
+    </script>
   </head>
   <body class="bg-light">
     <div class="root-wrapper overflow-x-hidden">
+      <Navbar />
       <slot />
     </div>
     <FloatingWhatsApp />
@@ -47,6 +54,15 @@ const { title } = Astro.props;
       document.addEventListener('astro:after-swap', () => {
         AOS.refresh();
       });
+
+      // Handle view transitions
+      document.addEventListener('astro:before-preparation', () => {
+        document.documentElement.classList.add('transition-active');
+      });
+
+      document.addEventListener('astro:after-preparation', () => {
+        document.documentElement.classList.remove('transition-active');
+      });
     </script>
   </body>
 </html>
@@ -55,6 +71,8 @@ const { title } = Astro.props;
   :root {
     --accent: 239, 35, 60;
     --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #4a90e2 30%, white 60%);
+    --transition-duration: 0.5s;
+    --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   html {
@@ -163,115 +181,11 @@ const { title } = Astro.props;
     box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
   }
 
-  /* Add transition animations */
-  @keyframes slide-from-right {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slide-to-left {
-    from {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-  }
-
-  @keyframes scale-up {
-    from {
-      transform: scale(0.95);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  /* Custom transition classes */
-  .page-transition {
-    view-transition-name: page;
-    width: 100%;
-    position: relative;
-    overflow: visible;
-  }
-
-  .hero-transition {
-    view-transition-name: hero;
-  }
-
-  .nav-transition {
-    view-transition-name: nav;
-  }
-
-  ::view-transition-old(root) {
-    animation: 0.5s cubic-bezier(0.76, 0, 0.24, 1) both slide-to-left;
-  }
-
-  ::view-transition-new(root) {
-    animation: 0.5s cubic-bezier(0.76, 0, 0.24, 1) both slide-from-right;
-  }
-
-  ::view-transition-old(page),
-  ::view-transition-new(page) {
-    animation: 0.6s cubic-bezier(0.76, 0, 0.24, 1) both scale-up;
-  }
-
-  /* Standardized transition animations */
+  /* View Transitions */
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
-  }
-
-  ::view-transition-old(page) {
-    animation: 
-      0.5s cubic-bezier(0.76, 0, 0.24, 1) both fade-out,
-      0.5s cubic-bezier(0.76, 0, 0.24, 1) both slide-to-left;
-  }
-
-  ::view-transition-new(page) {
-    animation: 
-      0.5s cubic-bezier(0.76, 0, 0.24, 1) both fade-in,
-      0.5s cubic-bezier(0.76, 0, 0.24, 1) both slide-from-right;
-  }
-
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-
-  @keyframes slide-from-right {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-  }
-
-  @keyframes slide-to-left {
-    from { transform: translateX(0); }
-    to { transform: translateX(-100%); }
-  }
-
-  /* Ensure smooth transitions for all pages */
-  main {
-    view-transition-name: page;
-    min-height: 100vh;
-    width: 100%;
-    position: relative;
-    overflow: visible;
   }
 
   /* Keep navbar visible during transitions */
@@ -285,121 +199,16 @@ const { title } = Astro.props;
     mix-blend-mode: normal;
   }
 
-  /* Updated View Transitions */
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
+  /* Ensure smooth transitions */
+  .transition-active {
+    pointer-events: none;
   }
 
-  /* Refined page transition */
-  .page-transition {
-    view-transition-name: page;
-  }
-
-  ::view-transition-old(page) {
-    animation: 
-      0.4s cubic-bezier(0.4, 0, 0.2, 1) both fade-out,
-      0.4s cubic-bezier(0.4, 0, 0.2, 1) both slide-out;
-  }
-
-  ::view-transition-new(page) {
-    animation: 
-      0.4s cubic-bezier(0.4, 0, 0.2, 1) both fade-in,
-      0.4s cubic-bezier(0.4, 0, 0.2, 1) both slide-in;
-  }
-
-  /* Subtle navbar transition */
-  .nav-transition {
-    view-transition-name: nav;
-  }
-
-  ::view-transition-old(nav),
-  ::view-transition-new(nav) {
-    animation: none;
-    mix-blend-mode: normal;
-  }
-
-  /* More subtle animations */
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-
-  @keyframes slide-in {
-    from { transform: translateY(10px); }
-    to { transform: translateY(0); }
-  }
-
-  @keyframes slide-out {
-    from { transform: translateY(0); }
-    to { transform: translateY(-10px); }
-  }
-
-  /* Hero section transition */
-  .hero-transition {
-    view-transition-name: hero;
-  }
-
-  ::view-transition-old(hero),
-  ::view-transition-new(hero) {
-    animation: 
-      0.5s cubic-bezier(0.4, 0, 0.2, 1) both fade-scale;
-  }
-
-  @keyframes fade-scale {
-    from {
-      opacity: 0;
-      transform: scale(0.98);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  /* Smooth image transitions */
-  img {
-    view-transition-name: auto;
-    transition: transform 0.3s ease;
-  }
-
-  /* Content blocks transition */
-  .content-block {
-    view-transition-name: content;
-  }
-
-  ::view-transition-old(content),
-  ::view-transition-new(content) {
-    animation: 
-      0.4s cubic-bezier(0.4, 0, 0.2, 1) both fade-slide;
-  }
-
-  @keyframes fade-slide {
-    from {
-      opacity: 0;
-      transform: translateY(5px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Ensure smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-    overflow-y: scroll; /* Prevent layout shift */
-  }
-
-  /* Prevent FOUC during transitions */
-  .transition-ready {
-    animation: none !important;
+  .root-wrapper {
+    min-height: 100vh;
+    position: relative;
+    width: 100%;
+    padding-top: 5rem; /* Add padding to account for fixed navbar */
   }
 
   /* Optional: Add support for reduced motion */
@@ -413,61 +222,9 @@ const { title } = Astro.props;
     html {
       scroll-behavior: auto !important;
     }
-  }
 
-  /* Simplified page transitions */
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
-  }
-
-  main {
-    view-transition-name: main;
-  }
-
-  ::view-transition-old(main) {
-    animation: 0.4s cubic-bezier(0.4, 0, 0.2, 1) both fade-out;
-  }
-
-  ::view-transition-new(main) {
-    animation: 0.4s cubic-bezier(0.4, 0, 0.2, 1) both fade-in;
-  }
-
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-
-  /* Keep navbar visible during transitions */
-  nav {
-    view-transition-name: nav;
-  }
-
-  ::view-transition-old(nav),
-  ::view-transition-new(nav) {
-    animation: none;
-    mix-blend-mode: normal;
-  }
-
-  /* Optional: Add support for reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    ::view-transition-group(*),
-    ::view-transition-old(*),
-    ::view-transition-new(*) {
-      animation: none !important;
+    .transition-active {
+      pointer-events: auto;
     }
-  }
-
-  /* Add these styles */
-  .root-wrapper {
-    min-height: 100vh;
-    position: relative;
-    width: 100%;
   }
 </style>

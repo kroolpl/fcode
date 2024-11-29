@@ -1,101 +1,135 @@
 ---
 import { Image } from 'astro:assets';
-import HeroImage from '../assets/images/hero.png';
+import heroImage from '../assets/images/hero.png';
 ---
 
-<section class="relative min-h-screen flex items-center">
-  <!-- Background gradient - pointer events none -->
-  <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 pointer-events-none"></div>
-  
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-20 w-full relative">
+<section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary/5 via-light to-white">
+  <!-- Background Elements -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Text Content -->
-      <div 
-        class="text-left relative mt-8 md:mt-0" 
-        data-aos="fade-right" 
-        data-aos-duration="1000"
-      >
-        <h1 class="text-4xl md:text-7xl font-bold text-primary mb-6">
-          Tworzymy <span class="text-accent">cyfrowe</span> doświadczenia
+      <div class="text-center lg:text-left" data-aos="fade-right">
+        <div class="inline-block">
+          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-accent/10 text-accent mb-6">
+            <span class="animate-pulse mr-2">🚀</span>
+            Innowacyjne rozwiązania cyfrowe
+          </span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight">
+          Przekształcamy 
+          <span class="text-accent relative">
+            pomysły
+            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 100 20" preserveAspectRatio="none">
+              <path class="stroke-accent/30" d="M0 10 Q50 0 100 10" fill="none" stroke-width="2"/>
+            </svg>
+          </span>
+          <br/> w cyfrową 
+          <span class="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">rzeczywistość</span>
         </h1>
-        <p class="text-xl text-secondary mb-10">
-          Projektujemy i wdrażamy nowoczesne rozwiązania webowe dla firm, które chcą się wyróżnić
+        <p class="text-lg md:text-xl text-secondary mb-8 max-w-2xl mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="100">
+          Tworzymy nowoczesne strony internetowe i aplikacje, które pomagają firmom osiągać sukces w cyfrowym świecie.
         </p>
-        <div class="flex flex-wrap gap-4">
-          <a
-            href="#contact"
-            class="group inline-flex items-center px-8 py-3 rounded-full text-lg font-medium bg-accent text-white hover:scale-105 transition-transform"
-          >
-            <span class="flex items-center">
+        
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="200">
+          <a href="/kontakt" class="cta-button px-8 py-4 bg-[#203951] text-white rounded-full font-medium text-lg group relative overflow-hidden">
+            <span class="relative z-10 flex items-center justify-center">
               Rozpocznij projekt
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
               </svg>
             </span>
           </a>
-          <a
-            href="#services"
-            class="group inline-flex items-center px-8 py-3 rounded-full text-lg font-medium border-2 border-primary text-primary hover:bg-primary hover:text-white hover:scale-105 transition-all"
-          >
-            <span class="flex items-center">
-              Poznaj nas
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          <a href="/realizacje" class="cta-button-secondary px-8 py-4 border-2 border-primary text-primary rounded-full font-medium text-lg hover:text-white relative overflow-hidden group">
+            <span class="relative z-10 flex items-center justify-center">
+              Zobacz realizacje
+              <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
               </svg>
             </span>
           </a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 items-center justify-center lg:justify-start text-center lg:text-left" data-aos="fade-up" data-aos-delay="300">
+          {[
+            { number: '98%', label: 'Zadowolonych klientów' },
+            { number: '250+', label: 'Projektów' },
+            { number: '10+', label: 'Lat doświadczenia' },
+            { number: '24/7', label: 'Wsparcie' }
+          ].map(stat => (
+            <div class="glass p-4 rounded-xl hover:scale-105 transition-transform">
+              <div class="text-2xl font-bold text-accent mb-1">{stat.number}</div>
+              <div class="text-sm text-secondary">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
 
-      <!-- Hero Image Section -->
-      <div 
-        class="relative mt-4 md:mt-0"
-        data-aos="fade-left" 
-        data-aos-duration="1000"
-      >
-        <!-- Main image container - preserve pointer events -->
-        <div class="relative transition-transform hover:-translate-y-2 duration-300">
+      <!-- Hero Image -->
+      <div class="relative" data-aos="fade-left">
+        <div class="relative z-10 animate-float">
           <Image
-            src={HeroImage}
+            src={heroImage}
             alt="Hero Image"
-            class="rounded-2xl relative"
-            width={800}
-            height={600}
-            quality={90}
+            class="w-full h-auto max-w-2xl mx-auto rounded-2xl shadow-2xl"
+            width={600}
+            height={400}
           />
-          
-          <!-- Shadow overlay - pointer events none -->
-          <div 
-            class="absolute inset-0 rounded-2xl shadow-2xl pointer-events-none"
-            style="background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1));"
-          ></div>
         </div>
-        
-        <!-- Decorative elements - pointer events none -->
-        <div class="absolute -z-1 top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -z-1 bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- Decorative Elements -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-2xl">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-2xl"></div>
+          <div class="absolute bottom-0 left-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl"></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* Ensure section allows pointer events */
-  section {
-    isolation: isolate;
-    pointer-events: auto;
-  }
-
-  /* Optimize animations without blocking scroll */
-  .blur-3xl {
-    animation: float 15s infinite alternate ease-in-out;
-    will-change: transform;
-    transform: translateZ(0);
-    pointer-events: none;
-  }
-
   @keyframes float {
-    0%, 100% { transform: translate3d(0, 0, 0); }
-    50% { transform: translate3d(-20px, 20px, 0); }
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .cta-button:hover::before {
+    transform: translateX(100%);
+  }
+
+  .cta-button-secondary::before {
+    background: #203951;
   }
 </style>
