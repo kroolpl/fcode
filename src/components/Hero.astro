@@ -3,34 +3,91 @@ import { Image } from 'astro:assets';
 import heroImage from '../assets/images/hero.png';
 ---
 
-<section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary/5 via-light to-white">
+<section class="relative min-h-[85vh] flex items-center overflow-hidden bg-gradient-to-br from-primary/5 via-light to-white">
   <!-- Background Elements -->
   <div class="absolute inset-0 overflow-hidden">
     <div class="absolute -top-40 -right-40 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
     <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Text Content -->
       <div class="text-center lg:text-left" data-aos="fade-right">
         <div class="inline-block">
-          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-accent/10 text-accent mb-6">
+          <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-accent/10 text-accent mb-4">
             <span class="animate-pulse mr-2">🚀</span>
             Innowacyjne rozwiązania cyfrowe
           </span>
         </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight">
-          Przekształcamy 
-          <span class="text-accent relative">
-            pomysły
-            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 100 20" preserveAspectRatio="none">
-              <path class="stroke-accent/30" d="M0 10 Q50 0 100 10" fill="none" stroke-width="2"/>
-            </svg>
-          </span>
-          <br/> w cyfrową 
-          <span class="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">rzeczywistość</span>
-        </h1>
+        
+        <!-- Typewriter Effect -->
+        <div x-data="{
+          lines: [
+            { text: 'Przekształcamy', visible: false },
+            { text: 'pomysły', visible: false },
+            { text: 'w cyfrową', visible: false },
+            { text: 'rzeczywistość', visible: false }
+          ],
+          currentLine: 0,
+          charIndex: 0,
+          isTyping: true,
+          init() {
+            this.typeNextLine();
+          },
+          typeNextLine() {
+            if (this.currentLine >= this.lines.length) {
+              this.isTyping = false;
+              this.showAllLines();
+              return;
+            }
+
+            const line = this.lines[this.currentLine];
+            const text = line.text;
+            
+            if (this.charIndex <= text.length) {
+              this.lines[this.currentLine].visible = true;
+              setTimeout(() => {
+                this.charIndex++;
+                this.typeNextLine();
+              }, 100);
+            } else {
+              this.currentLine++;
+              this.charIndex = 0;
+              setTimeout(() => {
+                this.typeNextLine();
+              }, 500);
+            }
+          },
+          showAllLines() {
+            this.lines.forEach(line => line.visible = true);
+          }
+        }" class="mb-6">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-tight relative">
+            <template x-for="(line, index) in lines" :key="index">
+              <div 
+                x-show="line.visible"
+                x-transition:enter="transition-all duration-500"
+                x-transition:enter-start="opacity-0 transform translate-y-4"
+                x-transition:enter-end="opacity-100 transform translate-y-0"
+                class="mb-2"
+              >
+                <span 
+                  x-text="isTyping && currentLine === index ? line.text.substring(0, charIndex) : line.text"
+                  :class="{
+                    'bg-gradient-to-r from-accent to-[#203951] bg-clip-text text-transparent': index === 1 || index === 3,
+                    'relative inline-block': true
+                  }"
+                ></span>
+                <span 
+                  x-show="isTyping && currentLine === index" 
+                  class="typing-cursor"
+                >|</span>
+              </div>
+            </template>
+          </h1>
+        </div>
+
         <p class="text-lg md:text-xl text-secondary mb-8 max-w-2xl mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="100">
           Tworzymy nowoczesne strony internetowe i aplikacje, które pomagają firmom osiągać sukces w cyfrowym świecie.
         </p>
@@ -111,6 +168,18 @@ import heroImage from '../assets/images/hero.png';
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    animation: blink 1s infinite;
+    margin-left: 2px;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 
   .cta-button::before {
