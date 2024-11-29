@@ -9,7 +9,6 @@ import { Image } from 'astro:assets';
 import Project1 from '../assets/images/projects/project1.jpg';
 import Project2 from '../assets/images/projects/project2.jpg';
 import Project3 from '../assets/images/projects/project3.jpg';
-// Add more project images as needed
 
 const projects = [
   {
@@ -18,7 +17,17 @@ const projects = [
     description: 'Nowoczesna platforma e-commerce z zaawansowanymi funkcjami i eleganckim designem.',
     image: Project1,
     technologies: ['Next.js', 'Tailwind CSS', 'Stripe'],
-    link: '#'
+    link: '#',
+    stats: [
+      { label: 'Wzrost sprzedaży', value: '+150%' },
+      { label: 'Konwersja', value: '4.8%' },
+      { label: 'Czas ładowania', value: '0.8s' }
+    ],
+    testimonial: {
+      content: "Współpraca przeszła nasze najśmielsze oczekiwania. Nowy sklep nie tylko wygląda świetnie, ale przede wszystkim znacząco zwiększył naszą sprzedaż.",
+      author: "Anna Kowalska",
+      position: "CEO, Fashion Store"
+    }
   },
   {
     title: 'System CRM',
@@ -26,7 +35,17 @@ const projects = [
     description: 'Zaawansowany system zarządzania relacjami z klientami dla firmy z branży finansowej.',
     image: Project2,
     technologies: ['React', 'Node.js', 'MongoDB'],
-    link: '#'
+    link: '#',
+    stats: [
+      { label: 'Efektywność pracy', value: '+75%' },
+      { label: 'Zadowolenie klientów', value: '98%' },
+      { label: 'ROI', value: '320%' }
+    ],
+    testimonial: {
+      content: "System zrewolucjonizował nasz sposób pracy. Oszczędzamy dziesiątki godzin tygodniowo, a nasi klienci są obsługiwani jeszcze lepiej.",
+      author: "Marek Nowak",
+      position: "Dyrektor Operacyjny, FinCorp"
+    }
   },
   {
     title: 'Portfolio Artysty',
@@ -34,19 +53,43 @@ const projects = [
     description: 'Minimalistyczne portfolio z galerią prac i systemem rezerwacji.',
     image: Project3,
     technologies: ['Astro', 'Alpine.js', 'Supabase'],
-    link: '#'
-  },
-  // Add more projects as needed
+    link: '#',
+    stats: [
+      { label: 'Nowi klienci', value: '+200%' },
+      { label: 'Czas na stronie', value: '4.5min' },
+      { label: 'Bounce Rate', value: '15%' }
+    ],
+    testimonial: {
+      content: "Strona idealnie oddaje charakter mojej twórczości. Jestem zachwycona nie tylko designem, ale też funkcjonalnością i szybkością działania.",
+      author: "Julia Wiśniewska",
+      position: "Artystka"
+    }
+  }
 ];
 
 const categories = ['Wszystkie', 'Sklep internetowy', 'Aplikacja webowa', 'Strona WWW'];
+
+// Pass data to Alpine.js
+const alpineData = {
+  projects,
+  categories,
+  activeCategory: 'Wszystkie',
+};
 ---
 
 <Layout title="Realizacje - Nowoczesna Agencja Interaktywna">
   <Navbar />
   
   <PageTransitionWrapper>
-    <main class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white">
+    <main 
+      class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white"
+      x-data={`{
+        activeCategory: 'Wszystkie',
+        isVisible(category) {
+          return this.activeCategory === 'Wszystkie' || category === this.activeCategory;
+        }
+      }`}
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Hero Section -->
         <div class="text-center mb-16">
@@ -61,11 +104,48 @@ const categories = ['Wszystkie', 'Sklep internetowy', 'Aplikacja webowa', 'Stron
           </p>
         </div>
 
+        <!-- Featured Project -->
+        <div class="mb-24 glass rounded-3xl overflow-hidden" data-aos="fade-up">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="relative aspect-[4/3] md:aspect-auto">
+              <Image
+                src={projects[0].image}
+                alt={projects[0].title}
+                class="w-full h-full object-cover"
+                width={800}
+                height={600}
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent md:hidden"></div>
+            </div>
+            <div class="p-8 md:p-12 flex flex-col justify-center">
+              <span class="text-accent text-sm uppercase tracking-wider mb-4">{projects[0].category}</span>
+              <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">{projects[0].title}</h2>
+              <p class="text-secondary text-lg mb-8">{projects[0].description}</p>
+              <div class="grid grid-cols-3 gap-4 mb-8">
+                {projects[0].stats.map(stat => (
+                  <div class="text-center p-4 rounded-xl bg-white/50">
+                    <div class="text-2xl font-bold text-accent mb-2">{stat.value}</div>
+                    <div class="text-sm text-secondary">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+              <a href={projects[0].link} class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-accent text-white font-medium hover:scale-105 transition-transform duration-300">
+                Zobacz case study
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- Filters -->
         <div class="flex flex-wrap justify-center gap-4 mb-16" data-aos="fade-up" data-aos-delay="300">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <button 
-              class="px-6 py-2 rounded-full text-primary hover:text-accent border border-primary/20 hover:border-accent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/20"
+              @click={`activeCategory = '${category}'`}
+              x-bind:class={`activeCategory === '${category}' ? 'bg-accent text-white' : 'text-primary hover:text-accent border border-primary/20 hover:border-accent'`}
+              class="px-6 py-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/20"
             >
               {category}
             </button>
@@ -79,6 +159,10 @@ const categories = ['Wszystkie', 'Sklep internetowy', 'Aplikacja webowa', 'Stron
               class="group glass rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-500"
               data-aos="fade-up"
               data-aos-delay={index * 100}
+              x-show={`isVisible('${project.category}')`}
+              x-transition:enter="transition ease-out duration-300"
+              x-transition:enter-start="opacity-0 transform scale-95"
+              x-transition:enter-end="opacity-100 transform scale-100"
             >
               <!-- Project Image -->
               <div class="relative overflow-hidden aspect-video">
@@ -111,6 +195,25 @@ const categories = ['Wszystkie', 'Sklep internetowy', 'Aplikacja webowa', 'Stron
                     </span>
                   ))}
                 </div>
+
+                <!-- Project Stats -->
+                <div class="grid grid-cols-3 gap-2 mb-6">
+                  {project.stats.map(stat => (
+                    <div class="text-center p-2 rounded-lg bg-white/50">
+                      <div class="text-lg font-bold text-accent">{stat.value}</div>
+                      <div class="text-xs text-secondary">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <!-- Testimonial -->
+                <blockquote class="mb-6 p-4 border-l-4 border-accent bg-white/50 rounded-r-lg">
+                  <p class="text-sm text-secondary italic mb-2">{project.testimonial.content}</p>
+                  <footer class="text-sm">
+                    <strong class="text-primary">{project.testimonial.author}</strong>
+                    <span class="text-secondary"> - {project.testimonial.position}</span>
+                  </footer>
+                </blockquote>
 
                 <!-- Link -->
                 <a 
@@ -162,4 +265,4 @@ const categories = ['Wszystkie', 'Sklep internetowy', 'Aplikacja webowa', 'Stron
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
-</style> 
+</style>
