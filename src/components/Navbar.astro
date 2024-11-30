@@ -1,10 +1,31 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/images/logo.png';
-import LanguageSwitcher from './LanguageSwitcher.astro';
 
 const { pathname } = Astro.url;
 const isEnglish = pathname.startsWith('/en');
+
+const routeMapping = {
+  // English to Polish
+  '/en/': '/',
+  '/en/services': '/uslugi',
+  '/en/portfolio': '/realizacje',
+  '/en/about': '/o-nas',
+  '/en/blog': '/blog',
+  '/en/contact': '/kontakt',
+  
+  // Polish to English
+  '/': '/en/',
+  '/uslugi': '/en/services',
+  '/realizacje': '/en/portfolio',
+  '/o-nas': '/en/about',
+  '/blog': '/en/blog',
+  '/kontakt': '/en/contact'
+};
+
+const switchUrl = isEnglish 
+  ? routeMapping[pathname] || '/' 
+  : routeMapping[pathname] || '/en/'
 
 const menuItems = isEnglish ? [
   { href: '/en/', text: 'Home' },
@@ -21,6 +42,34 @@ const menuItems = isEnglish ? [
   { href: '/blog', text: 'Blog' },
   { href: '/kontakt', text: 'Kontakt' }
 ];
+
+const languages = [
+  { 
+    code: 'en',
+    name: 'English',
+    flag: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30">
+      <clipPath id="s">
+        <path d="M0,0 v30 h60 v-30 z"/>
+      </clipPath>
+      <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#s)" stroke="#C8102E" stroke-width="4"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+    </svg>`
+  },
+  { 
+    code: 'pl',
+    name: 'Polski',
+    flag: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10">
+      <path fill="#fff" d="M0 0h16v10H0z"/>
+      <path fill="#dc143c" d="M0 5h16v5H0z"/>
+    </svg>`
+  }
+];
+
+const currentLang = isEnglish ? languages[0] : languages[1];
+const targetLang = isEnglish ? languages[1] : languages[0];
 
 const currentPath = Astro.url.pathname;
 ---
@@ -62,42 +111,16 @@ const currentPath = Astro.url.pathname;
             ]}></span>
           </a>
         ))}
-        <LanguageSwitcher />
-        <button
-          @click="darkMode = !darkMode"
-          class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-          aria-label="Toggle dark mode"
+
+        <!-- Desktop Language Switcher -->
+        <a 
+          href={switchUrl}
+          class="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
         >
-          <svg
-            x-show="!darkMode"
-            class="w-6 h-6 text-primary dark:text-gray-200"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-            ></path>
-          </svg>
-          <svg
-            x-show="darkMode"
-            x-cloak
-            class="w-6 h-6 text-primary dark:text-gray-200"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-            ></path>
-          </svg>
-        </button>
+          <div class="w-6 h-4 rounded-sm overflow-hidden shadow-sm border border-gray-200" set:html={targetLang.flag} />
+          <span class="text-sm font-medium text-primary dark:text-gray-200">{targetLang.code.toUpperCase()}</span>
+        </a>
+
         <a
           href={isEnglish ? "/en/contact" : "/kontakt"}
           class="nav-cta-button px-6 py-2 text-white rounded-full font-medium transition-all duration-300"
@@ -107,78 +130,31 @@ const currentPath = Astro.url.pathname;
       </div>
 
       <!-- Mobile Menu Button -->
-      <div class="md:hidden flex items-center space-x-4">
-        <button
-          @click="darkMode = !darkMode"
-          class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-          aria-label="Toggle dark mode"
+      <button
+        @click="isOpen = !isOpen"
+        class="md:hidden text-primary dark:text-gray-200 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+        aria-label="Toggle menu"
+      >
+        <svg
+          x-show="!isOpen"
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          <svg
-            x-show="!darkMode"
-            class="w-6 h-6 text-primary dark:text-gray-200"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-            ></path>
-          </svg>
-          <svg
-            x-show="darkMode"
-            x-cloak
-            class="w-6 h-6 text-primary dark:text-gray-200"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-            ></path>
-          </svg>
-        </button>
-        <button
-          @click="isOpen = !isOpen"
-          class="text-primary dark:text-gray-200 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
-          aria-label="Toggle menu"
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg
+          x-show="isOpen"
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          x-cloak
         >
-          <svg
-            x-show="!isOpen"
-            class="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
-          <svg
-            x-show="isOpen"
-            class="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            x-cloak
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            ></path>
-          </svg>
-        </button>
-      </div>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -208,11 +184,28 @@ const currentPath = Astro.url.pathname;
           {item.text}
         </a>
       ))}
+
+      <!-- Mobile Language Switcher -->
+      <div class="border-t border-gray-200 dark:border-gray-700 my-4 pt-4">
+        <p class="px-3 text-sm text-gray-500 dark:text-gray-400 mb-2">
+          {isEnglish ? "Change language" : "Zmień język"}
+        </p>
+        <a
+          href={switchUrl}
+          class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+        >
+          <div class="w-6 h-4 rounded-sm overflow-hidden shadow-sm border border-gray-200" set:html={targetLang.flag} />
+          <div>
+            <span class="text-base font-medium text-primary dark:text-gray-200">{targetLang.name}</span>
+          </div>
+        </a>
+      </div>
+
       <a
-        href="/kontakt"
-        class="nav-cta-button block px-3 py-2 rounded-lg text-base font-medium text-white transition-colors duration-300 mt-4"
+        href={isEnglish ? "/en/contact" : "/kontakt"}
+        class="nav-cta-button block px-3 py-2 rounded-lg text-base font-medium text-white transition-colors duration-300 mt-4 text-center"
       >
-        Rozpocznij projekt
+        {isEnglish ? "Start Project" : "Rozpocznij projekt"}
       </a>
     </div>
   </div>
@@ -261,5 +254,10 @@ const currentPath = Astro.url.pathname;
 
   :global(.dark) .nav-cta-button:hover {
     background-color: #374151;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
   }
 </style>
