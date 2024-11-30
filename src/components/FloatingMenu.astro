@@ -1,4 +1,73 @@
 ---
+const { pathname } = Astro.url;
+const isEnglish = pathname.startsWith('/en');
+
+// Route mapping between English and Polish paths
+const routeMapping = {
+  // English to Polish
+  '/en/': '/',
+  '/en/services': '/uslugi',
+  '/en/portfolio': '/realizacje',
+  '/en/about': '/o-nas',
+  '/en/blog': '/blog',
+  '/en/contact': '/kontakt',
+  
+  // Polish to English
+  '/': '/en/',
+  '/uslugi': '/en/services',
+  '/realizacje': '/en/portfolio',
+  '/o-nas': '/en/about',
+  '/blog': '/en/blog',
+  '/kontakt': '/en/contact'
+};
+
+const switchUrl = isEnglish 
+  ? routeMapping[pathname] || '/' 
+  : routeMapping[pathname] || '/en/'
+
+const menuItems = isEnglish ? [
+  { href: "/en/", text: "Home", delay: 100 },
+  { href: "/en/services", text: "Services", delay: 200 },
+  { href: "/en/about", text: "About", delay: 300 },
+  { href: "/en/portfolio", text: "Portfolio", delay: 400 },
+  { href: "/en/blog", text: "Blog", delay: 500 },
+  { href: "/en/contact", text: "Contact", delay: 600 }
+] : [
+  { href: "/", text: "Strona Główna", delay: 100 },
+  { href: "/uslugi", text: "Usługi", delay: 200 },
+  { href: "/o-nas", text: "O nas", delay: 300 },
+  { href: "/realizacje", text: "Realizacje", delay: 400 },
+  { href: "/blog", text: "Blog", delay: 500 },
+  { href: "/kontakt", text: "Kontakt", delay: 600 }
+];
+
+const languages = [
+  { 
+    code: 'en',
+    name: 'English',
+    flag: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30">
+      <clipPath id="s">
+        <path d="M0,0 v30 h60 v-30 z"/>
+      </clipPath>
+      <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#s)" stroke="#C8102E" stroke-width="4"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+    </svg>`
+  },
+  { 
+    code: 'pl',
+    name: 'Polski',
+    flag: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10">
+      <path fill="#fff" d="M0 0h16v10H0z"/>
+      <path fill="#dc143c" d="M0 5h16v5H0z"/>
+    </svg>`
+  }
+];
+
+const currentLang = isEnglish ? languages[0] : languages[1];
+const targetLang = isEnglish ? languages[1] : languages[0];
 ---
 
 <div x-data="{ isOpen: false }" class="lg:hidden">
@@ -8,7 +77,7 @@
     class="fixed bottom-6 right-6 z-[60] w-14 h-14 rounded-full bg-accent shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-xl"
     :class="{ 'rotate-90': isOpen }"
     :aria-expanded="isOpen"
-    aria-label="Menu główne"
+    aria-label={isEnglish ? "Main menu" : "Menu główne"}
     aria-controls="mobile-menu"
   >
     <svg 
@@ -44,7 +113,7 @@
     class="fixed inset-0 z-[50]"
     role="dialog"
     aria-modal="true"
-    aria-label="Menu mobilne"
+    aria-label={isEnglish ? "Mobile menu" : "Menu mobilne"}
     style="display: none;"
   >
     <!-- Background overlay -->
@@ -61,14 +130,7 @@
       <!-- Main Navigation -->
       <div class="flex flex-col items-end space-y-6 pr-2">
         <p class="text-white/60 text-sm font-medium tracking-wider uppercase mb-4">Menu</p>
-        {[
-          { href: "/", text: "Strona Główna", delay: 100 },
-          { href: "/uslugi", text: "Usługi", delay: 200 },
-          { href: "/o-nas", text: "O nas", delay: 300 },
-          { href: "/realizacje", text: "Realizacje", delay: 400 },
-          { href: "/blog", text: "Blog", delay: 500 },
-          { href: "/kontakt", text: "Kontakt", delay: 600 }
-        ].map((item) => (
+        {menuItems.map((item) => (
           <a 
             href={item.href} 
             @click="isOpen = false"
@@ -87,13 +149,42 @@
             </svg>
           </a>
         ))}
+
+        <!-- Language Switcher - Updated styling -->
+        <div class="w-full border-t border-white/10 pt-6 mt-6">
+          <p class="text-white/60 text-sm font-medium tracking-wider uppercase mb-4 text-right">
+            {isEnglish ? "Change Language" : "Zmień Język"}
+          </p>
+          <a 
+            href={switchUrl}
+            @click="isOpen = false"
+            class="group w-full flex items-center justify-end space-x-3 text-2xl font-bold text-white/80 hover:text-white transition-all transform hover:-translate-x-2 duration-200"
+            data-aos="fade-left"
+            data-aos-delay="700"
+          >
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-5 rounded-sm overflow-hidden shadow-sm border border-white/10" set:html={targetLang.flag} />
+              <span class="text-xl">{targetLang.name}</span>
+            </div>
+            <svg 
+              class="w-6 h-6 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-200" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
       </div>
 
-      <!-- Bottom Section with CTA and Social Media -->
+      <!-- Bottom Section -->
       <div class="space-y-8 flex flex-col items-start">
         <!-- Social Media Links -->
-        <div class="space-y-4 text-left" data-aos="fade-up" data-aos-delay="700">
-          <p class="text-white/60 text-sm font-medium tracking-wider uppercase mb-4" id="social-links-label">Śledź nas</p>
+        <div class="space-y-4 text-left" data-aos="fade-up" data-aos-delay="800">
+          <p class="text-white/60 text-sm font-medium tracking-wider uppercase mb-4" id="social-links-label">
+            {isEnglish ? "Follow us" : "Śledź nas"}
+          </p>
           <div class="flex space-x-6" aria-labelledby="social-links-label">
             <a 
               href="#" 
@@ -132,15 +223,15 @@
         </div>
 
         <!-- CTA Button -->
-        <div data-aos="fade-up" data-aos-delay="800">
+        <div data-aos="fade-up" data-aos-delay="900">
           <a 
-            href="/kontakt" 
+            href={isEnglish ? "/en/contact" : "/kontakt"} 
             @click="isOpen = false"
             class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium overflow-hidden rounded-full bg-white text-primary transition-all duration-300 hover:scale-105 hover:shadow-lg"
-            aria-label="Przejdź do formularza darmowej wyceny"
+            aria-label={isEnglish ? "Go to free quote form" : "Przejdź do formularza darmowej wyceny"}
           >
             <span class="relative flex items-center">
-              Darmowa Wycena
+              {isEnglish ? "Free Quote" : "Darmowa Wycena"}
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
@@ -150,4 +241,16 @@
       </div>
     </nav>
   </div>
-</div> 
+</div>
+
+<style>
+  /* Add styles for flag SVGs */
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .rounded-sm {
+    border-radius: 2px;
+  }
+</style> 

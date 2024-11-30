@@ -1,0 +1,72 @@
+---
+const { pathname } = Astro.url;
+const isEnglish = pathname.startsWith('/en');
+
+const routeMapping = {
+  // English to Polish
+  '/en/': '/',
+  '/en/services': '/uslugi',
+  '/en/portfolio': '/realizacje',
+  '/en/about': '/o-nas',
+  '/en/blog': '/blog',
+  '/en/contact': '/kontakt',
+  
+  // Polish to English
+  '/': '/en/',
+  '/uslugi': '/en/services',
+  '/realizacje': '/en/portfolio',
+  '/o-nas': '/en/about',
+  '/blog': '/en/blog',
+  '/kontakt': '/en/contact'
+};
+
+const switchUrl = isEnglish 
+  ? routeMapping[pathname] || '/' 
+  : routeMapping[pathname] || '/en/'
+
+const languages = [
+  { 
+    code: 'en',
+    name: 'English',
+    flag: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30">
+      <clipPath id="s">
+        <path d="M0,0 v30 h60 v-30 z"/>
+      </clipPath>
+      <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#s)" stroke="#C8102E" stroke-width="4"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+    </svg>`
+  },
+  { 
+    code: 'pl',
+    name: 'Polski',
+    flag: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10">
+      <path fill="#fff" d="M0 0h16v10H0z"/>
+      <path fill="#dc143c" d="M0 5h16v5H0z"/>
+    </svg>`
+  }
+];
+
+const currentLang = isEnglish ? languages[0] : languages[1];
+const targetLang = isEnglish ? languages[1] : languages[0];
+---
+
+<div class="lg:hidden fixed bottom-24 right-6 z-[60]">
+  <a
+    href={switchUrl}
+    class="flex items-center space-x-2 px-4 py-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+    aria-label={isEnglish ? "Switch to Polish" : "Przełącz na angielski"}
+  >
+    <div class="w-6 h-4 rounded-sm overflow-hidden shadow-sm border border-gray-100" set:html={targetLang.flag} />
+    <span class="text-sm font-medium text-primary">{targetLang.code.toUpperCase()}</span>
+  </a>
+</div>
+
+<style>
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+</style> 
