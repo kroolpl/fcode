@@ -132,28 +132,21 @@ const currentPath = Astro.url.pathname;
       <!-- Mobile Menu Button -->
       <button
         @click="isOpen = !isOpen"
-        class="md:hidden text-primary dark:text-gray-200 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+        class="md:hidden w-8 h-8 flex flex-col justify-center items-center gap-[5px] rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
         aria-label="Toggle menu"
       >
-        <svg
-          x-show="!isOpen"
-          class="h-5 w-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg
-          x-show="isOpen"
-          class="h-5 w-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          x-cloak
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <span 
+          class="hamburger-line"
+          :class="{ 'rotate-45 translate-y-[7px]': isOpen }"
+        ></span>
+        <span 
+          class="hamburger-line"
+          :class="{ 'opacity-0': isOpen }"
+        ></span>
+        <span 
+          class="hamburger-line"
+          :class="{ '-rotate-45 -translate-y-[7px]': isOpen }"
+        ></span>
       </button>
     </div>
   </div>
@@ -254,6 +247,17 @@ const currentPath = Astro.url.pathname;
 
   :global(.dark) .nav-cta-button:hover {
     background-color: #374151;
+  }
+
+  .hamburger-line {
+    width: 20px;
+    height: 2px;
+    background-color: #1F2937; /* text-primary color */
+    transition: all 0.3s ease;
+  }
+
+  :global(.dark) .hamburger-line {
+    background-color: #F3F4F6; /* dark mode color */
   }
 
   svg {
