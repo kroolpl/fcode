@@ -1,0 +1,130 @@
+---
+const { pathname } = Astro.url;
+const isEnglish = pathname.startsWith('/en');
+
+// Route mapping between English and Polish paths
+const routeMapping = {
+  // English to Polish
+  '/en/': '/',
+  '/en/services': '/uslugi',
+  '/en/portfolio': '/realizacje',
+  '/en/about': '/o-nas',
+  '/en/blog': '/blog',
+  '/en/contact': '/kontakt',
+  
+  // Polish to English
+  '/': '/en/',
+  '/uslugi': '/en/services',
+  '/realizacje': '/en/portfolio',
+  '/o-nas': '/en/about',
+  '/blog': '/en/blog',
+  '/kontakt': '/en/contact'
+};
+
+const languages = [
+  { 
+    code: 'en',
+    name: 'English',
+    flag: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30">
+      <clipPath id="s">
+        <path d="M0,0 v30 h60 v-30 z"/>
+      </clipPath>
+      <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#s)" stroke="#C8102E" stroke-width="4"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+    </svg>`,
+    label: 'Switch to English'
+  },
+  { 
+    code: 'pl',
+    name: 'Polski',
+    flag: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10">
+      <path fill="#fff" d="M0 0h16v10H0z"/>
+      <path fill="#dc143c" d="M0 5h16v5H0z"/>
+    </svg>`,
+    label: 'Przełącz na polski'
+  }
+];
+
+// Get the correct path for language switching
+const switchUrl = isEnglish 
+  ? routeMapping[pathname] || '/' 
+  : routeMapping[pathname] || '/en/'
+
+const currentLang = isEnglish ? languages[0] : languages[1];
+const targetLang = isEnglish ? languages[1] : languages[0];
+---
+
+<div class="relative" x-data="{ open: false }">
+  <button
+    @click="open = !open"
+    @click.outside="open = false"
+    class="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+    aria-label={`Current language: ${currentLang.name}`}
+  >
+    <div class="w-6 h-4 rounded-sm overflow-hidden shadow-sm" set:html={currentLang.flag} />
+    <span class="text-sm font-medium text-primary dark:text-gray-200">{currentLang.code.toUpperCase()}</span>
+    <svg 
+      class="w-4 h-4 text-gray-500 transition-transform duration-200"
+      :class="{ 'rotate-180': open }"
+      fill="none" 
+      viewBox="0 0 24 24" 
+      stroke="currentColor"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  <div
+    x-show="open"
+    x-transition:enter="transition ease-out duration-100"
+    x-transition:enter-start="transform opacity-0 scale-95"
+    x-transition:enter-end="transform opacity-100 scale-100"
+    x-transition:leave="transition ease-in duration-75"
+    x-transition:leave-start="transform opacity-100 scale-100"
+    x-transition:leave-end="transform opacity-0 scale-95"
+    class="absolute right-0 mt-2 w-48 rounded-xl bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="language-menu"
+  >
+    <a
+      href={switchUrl}
+      class="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300 rounded-xl"
+      role="menuitem"
+    >
+      <div class="w-8 h-5 rounded-sm overflow-hidden shadow-sm" set:html={targetLang.flag} />
+      <div class="flex flex-col">
+        <span class="text-sm font-medium text-primary dark:text-gray-200">
+          {targetLang.name}
+        </span>
+        <span class="text-xs text-gray-500 dark:text-gray-400">
+          {targetLang.label}
+        </span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+
+  /* Add a subtle hover effect to flags */
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  a:hover svg {
+    transform: scale(1.05);
+  }
+
+  /* Add a subtle border to flags */
+  .rounded-sm {
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+</style> 

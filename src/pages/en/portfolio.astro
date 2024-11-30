@@ -1,92 +1,92 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import PageTransitionWrapper from '../components/PageTransitionWrapper.astro';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/en/Footer.astro';
+import PageTransitionWrapper from '../../components/PageTransitionWrapper.astro';
 import { Image } from 'astro:assets';
 
 // Import your project images
-import Project1 from '../assets/images/projects/project1.jpg';
-import Project2 from '../assets/images/projects/project2.jpg';
-import Project3 from '../assets/images/projects/project3.jpg';
+import Project1 from '../../assets/images/projects/project1.jpg';
+import Project2 from '../../assets/images/projects/project2.jpg';
+import Project3 from '../../assets/images/projects/project3.jpg';
 
 const projects = [
   {
-    title: 'E-commerce Premium',
-    category: 'Sklep internetowy',
-    description: 'Nowoczesna platforma e-commerce z zaawansowanymi funkcjami i eleganckim designem.',
+    title: 'Premium E-commerce',
+    category: 'E-commerce',
+    description: 'Modern e-commerce platform with advanced features and elegant design.',
     image: Project1,
     technologies: ['Next.js', 'Tailwind CSS', 'Stripe'],
     link: '#',
     stats: [
-      { label: 'Wzrost sprzedaży', value: '+150%' },
-      { label: 'Konwersja', value: '4.8%' },
-      { label: 'Czas ładowania', value: '0.8s' }
+      { label: 'Sales Growth', value: '+150%' },
+      { label: 'Conversion', value: '4.8%' },
+      { label: 'Load Time', value: '0.8s' }
     ],
     testimonial: {
-      content: "Współpraca przeszła nasze najśmielsze oczekiwania. Nowy sklep nie tylko wygląda świetnie, ale przede wszystkim znacząco zwiększył naszą sprzedaż.",
-      author: "Anna Kowalska",
+      content: "The collaboration exceeded our wildest expectations. The new store not only looks great but has significantly increased our sales.",
+      author: "Anna Smith",
       position: "CEO, Fashion Store"
     }
   },
   {
-    title: 'System CRM',
-    category: 'Aplikacja webowa',
-    description: 'Zaawansowany system zarządzania relacjami z klientami dla firmy z branży finansowej.',
+    title: 'CRM System',
+    category: 'Web Application',
+    description: 'Advanced customer relationship management system for a financial company.',
     image: Project2,
     technologies: ['React', 'Node.js', 'MongoDB'],
     link: '#',
     stats: [
-      { label: 'Efektywność pracy', value: '+75%' },
-      { label: 'Zadowolenie klientów', value: '98%' },
+      { label: 'Work Efficiency', value: '+75%' },
+      { label: 'Customer Satisfaction', value: '98%' },
       { label: 'ROI', value: '320%' }
     ],
     testimonial: {
-      content: "System zrewolucjonizował nasz sposób pracy. Oszczędzamy dziesiątki godzin tygodniowo, a nasi klienci są obsługiwani jeszcze lepiej.",
-      author: "Marek Nowak",
-      position: "Dyrektor Operacyjny, FinCorp"
+      content: "The system has revolutionized our way of working. We save dozens of hours weekly, and our customers are served even better.",
+      author: "Mark Johnson",
+      position: "Operations Director, FinCorp"
     }
   },
   {
-    title: 'Portfolio Artysty',
-    category: 'Strona WWW',
-    description: 'Minimalistyczne portfolio z galerią prac i systemem rezerwacji.',
+    title: 'Artist Portfolio',
+    category: 'Website',
+    description: 'Minimalist portfolio with gallery and booking system.',
     image: Project3,
     technologies: ['Astro', 'Alpine.js', 'Supabase'],
     link: '#',
     stats: [
-      { label: 'Nowi klienci', value: '+200%' },
-      { label: 'Czas na stronie', value: '4.5min' },
+      { label: 'New Clients', value: '+200%' },
+      { label: 'Time on Site', value: '4.5min' },
       { label: 'Bounce Rate', value: '15%' }
     ],
     testimonial: {
-      content: "Strona idealnie oddaje charakter mojej twórczości. Jestem zachwycona nie tylko designem, ale też funkcjonalnością i szybkością działania.",
-      author: "Julia Wiśniewska",
-      position: "Artystka"
+      content: "The website perfectly captures the essence of my work. I'm delighted not only with the design but also with its functionality and speed.",
+      author: "Julia Wilson",
+      position: "Artist"
     }
   }
 ];
 
-const categories = ['Wszystkie', 'Sklep internetowy', 'Aplikacja webowa', 'Strona WWW'];
+const categories = ['All', 'E-commerce', 'Web Application', 'Website'];
 
 // Pass data to Alpine.js
 const alpineData = {
   projects,
   categories,
-  activeCategory: 'Wszystkie',
+  activeCategory: 'All',
 };
 ---
 
-<Layout title="Realizacje - Nowoczesna Agencja Interaktywna">
+<Layout title="Portfolio - Modern Interactive Agency">
   <Navbar />
   
   <PageTransitionWrapper>
     <main 
       class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white"
       x-data={`{
-        activeCategory: 'Wszystkie',
+        activeCategory: 'All',
         isVisible(category) {
-          return this.activeCategory === 'Wszystkie' || category === this.activeCategory;
+          return this.activeCategory === 'All' || category === this.activeCategory;
         }
       }`}
     >
@@ -94,13 +94,13 @@ const alpineData = {
         <!-- Hero Section -->
         <div class="text-center mb-16">
           <span class="text-accent uppercase tracking-wider font-semibold bg-accent/10 px-4 py-2 rounded-full inline-block mb-4" data-aos="fade-up">
-            Nasze realizacje
+            Our Portfolio
           </span>
           <h1 class="text-4xl md:text-5xl font-bold text-primary mt-4 mb-6" data-aos="fade-up" data-aos-delay="100">
-            Projekty, które <span class="text-accent">zmieniają</span> biznes
+            Projects that <span class="text-accent">transform</span> business
           </h1>
           <p class="text-xl text-secondary max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-            Zobacz, jak pomagamy naszym klientom osiągać sukces w świecie cyfrowym
+            See how we help our clients achieve success in the digital world
           </p>
         </div>
 
@@ -130,7 +130,7 @@ const alpineData = {
                 ))}
               </div>
               <a href={projects[0].link} class="inline-flex items-center justify-center px-8 py-3 rounded-full bg-accent text-white font-medium hover:scale-105 transition-transform duration-300">
-                Zobacz case study
+                View case study
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -220,7 +220,7 @@ const alpineData = {
                   href={project.link}
                   class="inline-flex items-center text-accent group-hover:translate-x-2 transition-transform duration-300"
                 >
-                  <span class="font-medium">Zobacz więcej</span>
+                  <span class="font-medium">Learn more</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -233,18 +233,18 @@ const alpineData = {
         <!-- CTA Section -->
         <div class="mt-24 text-center glass p-12 rounded-2xl" data-aos="fade-up">
           <h2 class="text-3xl font-bold text-primary mb-6">
-            Chcesz zrealizować podobny projekt?
+            Want to create a similar project?
           </h2>
           <p class="text-xl text-secondary mb-8 max-w-2xl mx-auto">
-            Skontaktuj się z nami i opowiedz o swoim pomyśle. Pomożemy Ci go zrealizować.
+            Get in touch and tell us about your idea. We'll help you make it happen.
           </p>
           <a
-            href="/kontakt"
+            href="/en/contact"
             class="group relative inline-flex items-center justify-center px-8 py-3 rounded-full text-lg font-medium overflow-hidden bg-accent text-white transition-all duration-300 ease-out hover:scale-105"
           >
             <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-accent via-accent/80 to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
             <span class="relative flex items-center">
-              Rozpocznij projekt
+              Start a project
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
@@ -265,4 +265,4 @@ const alpineData = {
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
-</style>
+</style> 

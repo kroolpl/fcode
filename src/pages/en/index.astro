@@ -1,37 +1,37 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
-import Footer from '../components/Footer.astro';
-import Testimonials from '../components/Testimonials.astro';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Hero from '../../components/en/Hero.astro';
+import Footer from '../../components/en/Footer.astro';
+import Testimonials from '../../components/en/Testimonials.astro';
 import { Image } from 'astro:assets';
 
 const services = [
   {
     icon: 'web',
-    title: 'Strony internetowe',
-    description: 'Nowoczesne i responsywne strony www, które przyciągają klientów.',
-    features: ['Responsywny design', 'Optymalizacja SEO', 'Szybkie ładowanie']
+    title: 'Websites',
+    description: 'Modern and responsive websites that attract customers.',
+    features: ['Responsive design', 'SEO optimization', 'Fast loading']
   },
   {
     icon: 'shop',
-    title: 'Sklepy online',
-    description: 'Profesjonalne platformy e-commerce napędzające sprzedaż.',
-    features: ['Intuicyjny panel', 'Integracje płatności', 'Analityka sprzedaży']
+    title: 'Online Stores',
+    description: 'Professional e-commerce platforms driving sales.',
+    features: ['Intuitive panel', 'Payment integrations', 'Sales analytics']
   },
   {
     icon: 'app',
-    title: 'Aplikacje webowe',
-    description: 'Zaawansowane rozwiązania dostosowane do Twoich potrzeb.',
-    features: ['Wydajność', 'Skalowalność', 'Bezpieczeństwo']
+    title: 'Web Applications',
+    description: 'Advanced solutions tailored to your needs.',
+    features: ['Performance', 'Scalability', 'Security']
   }
 ];
 
 const stats = [
-  { number: '98%', label: 'Zadowolonych klientów' },
-  { number: '250+', label: 'Zrealizowanych projektów' },
-  { number: '10+', label: 'Lat doświadczenia' },
-  { number: '24/7', label: 'Wsparcie techniczne' }
+  { number: '98%', label: 'Satisfied clients' },
+  { number: '250+', label: 'Completed projects' },
+  { number: '10+', label: 'Years of experience' },
+  { number: '24/7', label: 'Technical support' }
 ];
 
 const icons = {
@@ -41,7 +41,7 @@ const icons = {
 };
 ---
 
-<Layout title="Nowoczesna Agencja Interaktywna">
+<Layout title="Modern Interactive Agency">
   <Navbar />
   <Hero />
   
@@ -50,13 +50,13 @@ const icons = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-24">
         <span class="text-accent uppercase tracking-wider font-semibold bg-accent/10 px-4 py-2 rounded-full inline-block mb-4" data-aos="fade-up">
-          Co oferujemy
+          What we offer
         </span>
         <h2 class="text-4xl md:text-5xl font-bold text-primary mt-4" data-aos="fade-up" data-aos-delay="100">
-          Nasze <span class="text-accent">Usługi</span>
+          Our <span class="text-accent">Services</span>
         </h2>
         <p class="text-xl text-secondary mt-6 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-          Dostarczamy kompleksowe rozwiązania cyfrowe, które pomogą Twojej firmie osiągnąć sukces w internecie.
+          We provide comprehensive digital solutions that will help your business succeed online.
         </p>
       </div>
       
@@ -122,17 +122,17 @@ const icons = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center glass p-12 rounded-2xl" data-aos="fade-up">
         <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
-          Gotowy na cyfrową transformację?
+          Ready for digital transformation?
         </h2>
         <p class="text-xl text-secondary mb-8 max-w-2xl mx-auto">
-          Skontaktuj się z nami i rozpocznij swoją podróż ku sukcesowi w świecie online.
+          Contact us and start your journey towards online success.
         </p>
         <a
-          href="/kontakt"
+          href="/en/contact"
           class="inline-flex items-center justify-center px-8 py-3 rounded-full text-lg font-medium bg-accent text-white hover:scale-105 transition-transform"
         >
           <span class="flex items-center">
-            Rozpocznij projekt
+            Start project
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
@@ -152,4 +152,4 @@ const icons = {
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
-</style>
+</style> 

@@ -1,41 +1,41 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import thinkImage from '../assets/images/think.png';
-import Footer from '../components/Footer.astro';
+import thinkImage from '../../assets/images/think.png';
+import Footer from '../../components/en/Footer.astro';
 
 const services = [
   {
     icon: 'web',
-    title: 'Strony internetowe',
-    description: 'Tworzymy responsywne i nowoczesne strony www, które przyciągają klientów i budują wizerunek Twojej marki.',
+    title: 'Websites',
+    description: 'We create responsive and modern websites that attract customers and build your brand image.',
     features: [
-      'Responsywny design',
-      'Optymalizacja SEO',
-      'Szybkie ładowanie',
-      'Intuicyjny CMS'
+      'Responsive design',
+      'SEO optimization',
+      'Fast loading',
+      'Intuitive CMS'
     ]
   },
   {
     icon: 'shop',
-    title: 'Sklepy online',
-    description: 'Projektujemy i wdrażamy profesjonalne platformy e-commerce, które zwiększają sprzedaż i zadowolenie klientów.',
+    title: 'Online Stores',
+    description: 'We design and implement professional e-commerce platforms that increase sales and customer satisfaction.',
     features: [
-      'Intuicyjny panel administracyjny',
-      'Integracje płatności',
-      'Systemy lojalnościowe',
-      'Analityka sprzedaży'
+      'Intuitive admin panel',
+      'Payment integrations',
+      'Loyalty systems',
+      'Sales analytics'
     ]
   },
   {
     icon: 'app',
-    title: 'Aplikacje webowe',
-    description: 'Tworzymy zaawansowane aplikacje internetowe dostosowane do indywidualnych potrzeb Twojego biznesu.',
+    title: 'Web Applications',
+    description: 'We create advanced web applications tailored to your business\'s individual needs.',
     features: [
-      'Wydajność i skalowalność',
-      'Bezpieczeństwo danych',
-      'Integracje API',
-      'Wsparcie techniczne 24/7'
+      'Performance & scalability',
+      'Data security',
+      'API integrations',
+      '24/7 technical support'
     ]
   }
 ];
@@ -47,7 +47,7 @@ const icons = {
 };
 ---
 
-<Layout title="Usługi - Nowoczesne rozwiązania cyfrowe">
+<Layout title="Services - Modern Digital Solutions">
   <!-- Hero Section -->
   <section class="relative min-h-[90vh] flex items-center overflow-hidden perspective-1000">
     <!-- Animated Background -->
@@ -74,30 +74,30 @@ const icons = {
           <div class="inline-block transform hover:scale-105 transition-transform" data-aos="fade-down">
             <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-accent/10 text-accent">
               <span class="animate-pulse mr-2">💡</span>
-              <span class="typing-text">Innowacyjne rozwiązania dla Twojego biznesu</span>
+              <span class="typing-text">Innovative solutions for your business</span>
             </span>
           </div>
           
           <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-primary mt-8 mb-6 leading-tight" data-aos="fade-up">
             <span class="relative inline-block">
-              Transformujemy
+              Transforming
               <div class="absolute bottom-0 left-0 w-full h-2 bg-accent/20 transform -skew-x-12"></div>
             </span>
             <br />
             <span class="bg-gradient-to-r from-accent via-[#203951] to-primary bg-clip-text text-transparent animate-gradient-x">
-              przyszłość cyfrową
+              digital future
             </span>
           </h1>
           
           <p class="text-xl md:text-2xl text-secondary mb-12 max-w-3xl" data-aos="fade-up" data-aos-delay="100">
-            Tworzymy zaawansowane rozwiązania cyfrowe, które napędzają rozwój Twojego biznesu i wyznaczają nowe standardy w branży.
+            We create advanced digital solutions that drive your business growth and set new industry standards.
           </p>
 
           <!-- CTA Section -->
           <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="200">
             <a href="#services" class="group relative px-8 py-4 bg-[#203951] text-white rounded-full font-medium text-lg overflow-hidden transform hover:scale-105 transition-all duration-300">
               <span class="relative z-10 flex items-center">
-                Zobacz nasze usługi
+                View our services
                 <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                 </svg>
@@ -105,9 +105,9 @@ const icons = {
               <div class="absolute inset-0 bg-gradient-to-r from-accent to-[#203951] opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </a>
             
-            <a href="/kontakt" class="group relative px-8 py-4 border-2 border-[#203951] text-[#203951] rounded-full font-medium text-lg overflow-hidden hover:text-white transition-colors duration-300">
+            <a href="/en/contact" class="group relative px-8 py-4 border-2 border-[#203951] text-[#203951] rounded-full font-medium text-lg overflow-hidden hover:text-white transition-colors duration-300">
               <span class="relative z-10 flex items-center">
-                Darmowa konsultacja
+                Free consultation
                 <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>
@@ -122,7 +122,7 @@ const icons = {
           <div class="relative z-10 animate-float">
             <Image
               src={thinkImage}
-              alt="Innowacyjne myślenie"
+              alt="Innovative thinking"
               class="w-full h-auto max-w-2xl mx-auto filter drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
               width={600}
               height={600}
@@ -254,4 +254,4 @@ const icons = {
     from, to { border-color: transparent }
     50% { border-color: #EF233C }
   }
-</style>
+</style> 

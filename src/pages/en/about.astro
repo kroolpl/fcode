@@ -1,32 +1,32 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/en/Footer.astro';
 import { Image } from 'astro:assets';
-import BossImage from '../assets/images/boss.jpeg';
+import BossImage from '../../assets/images/boss.jpeg';
 
 const stats = [
-  { number: '10+', label: 'Lat doświadczenia' },
-  { number: '100+', label: 'Zadowolonych klientów' },
-  { number: '250+', label: 'Zrealizowanych projektów' },
-  { number: '24/7', label: 'Wsparcie techniczne' }
+  { number: '10+', label: 'Years of experience' },
+  { number: '100+', label: 'Satisfied clients' },
+  { number: '250+', label: 'Completed projects' },
+  { number: '24/7', label: 'Technical support' }
 ];
 
 const values = [
   {
     icon: 'innovation',
-    title: 'Innowacyjność',
-    description: 'Stale śledzimy najnowsze trendy i technologie, aby dostarczać nowoczesne rozwiązania.'
+    title: 'Innovation',
+    description: 'We constantly monitor the latest trends and technologies to deliver modern solutions.'
   },
   {
     icon: 'quality',
-    title: 'Jakość',
-    description: 'Każdy projekt realizujemy z najwyższą dbałością o szczegóły i wydajność.'
+    title: 'Quality',
+    description: 'We execute each project with the utmost attention to detail and performance.'
   },
   {
     icon: 'partnership',
-    title: 'Partnerstwo',
-    description: 'Budujemy długotrwałe relacje oparte na zaufaniu i wzajemnym zrozumieniu.'
+    title: 'Partnership',
+    description: 'We build long-lasting relationships based on trust and mutual understanding.'
   }
 ];
 
@@ -37,19 +37,19 @@ const icons = {
 };
 ---
 
-<Layout title="O nas - Nowoczesna Agencja Interaktywna">
+<Layout title="About Us - Modern Interactive Agency">
   <Navbar />
   
   <main class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Hero Section -->
       <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
-        <!-- Image Section - Updated size -->
+        <!-- Image Section -->
         <div class="relative max-w-lg mx-auto lg:mx-0" data-aos="fade-right">
           <div class="relative">
             <Image
               src={BossImage}
-              alt="CEO Nowoczesnej Agencji"
+              alt="CEO of Modern Agency"
               class="w-full h-auto rounded-2xl relative z-10"
               width={600}
               height={450}
@@ -62,7 +62,7 @@ const icons = {
             ></div>
           </div>
           
-          <!-- Decorative elements - adjusted size -->
+          <!-- Decorative elements -->
           <div class="absolute -z-1 -top-10 -right-10 w-48 h-48 bg-accent/10 rounded-full blur-2xl pointer-events-none"></div>
           <div class="absolute -z-1 -bottom-10 -left-10 w-48 h-48 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
         </div>
@@ -70,13 +70,13 @@ const icons = {
         <!-- Text Content -->
         <div class="text-left" data-aos="fade-left">
           <span class="text-accent uppercase tracking-wider font-semibold bg-accent/10 px-4 py-2 rounded-full inline-block mb-4">
-            O nas
+            About Us
           </span>
           <h1 class="text-4xl md:text-5xl font-bold text-primary mt-4 mb-6">
-            Tworzymy <span class="text-accent">przyszłość</span> cyfrowego biznesu
+            Creating the <span class="text-accent">future</span> of digital business
           </h1>
           <p class="text-xl text-secondary mb-8">
-            Od ponad dekady pomagamy firmom w cyfrowej transformacji, dostarczając innowacyjne rozwiązania technologiczne i marketingowe.
+            For over a decade, we've been helping companies with digital transformation, delivering innovative technological and marketing solutions.
           </p>
           
           <!-- Stats Grid -->
@@ -95,10 +95,10 @@ const icons = {
       <div class="mb-24">
         <div class="text-center mb-16">
           <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6" data-aos="fade-up">
-            Nasze wartości
+            Our Values
           </h2>
           <p class="text-xl text-secondary max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-            Kierujemy się jasnymi zasadami, które pozwalają nam dostarczać najwyższej jakości usługi i budować trwałe relacje z klientami.
+            We follow clear principles that allow us to deliver the highest quality services and build lasting relationships with clients.
           </p>
         </div>
 
@@ -129,17 +129,17 @@ const icons = {
       <!-- CTA Section -->
       <div class="text-center glass p-12 rounded-2xl" data-aos="fade-up">
         <h2 class="text-3xl font-bold text-primary mb-6">
-          Gotowy na współpracę?
+          Ready to collaborate?
         </h2>
         <p class="text-xl text-secondary mb-8 max-w-2xl mx-auto">
-          Skontaktuj się z nami i opowiedz o swoim projekcie. Pomożemy Ci osiągnąć sukces w świecie cyfrowym.
+          Get in touch and tell us about your project. We'll help you achieve success in the digital world.
         </p>
         <a
-          href="/kontakt"
+          href="/en/contact"
           class="inline-flex items-center justify-center px-8 py-3 rounded-full text-lg font-medium bg-accent text-white hover:scale-105 transition-transform"
         >
           <span class="flex items-center">
-            Rozpocznij współpracę
+            Start collaboration
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
@@ -150,4 +150,4 @@ const icons = {
   </main>
 
   <Footer />
-</Layout>
+</Layout> 

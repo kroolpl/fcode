@@ -1,46 +1,46 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/en/Footer.astro';
 import { Image } from 'astro:assets';
-import Post1 from '../assets/images/blog/post1.jpg';
-import Post2 from '../assets/images/blog/post2.jpg';
-import Post3 from '../assets/images/blog/post3.jpg';
+import Post1 from '../../assets/images/blog/post1.jpg';
+import Post2 from '../../assets/images/blog/post2.jpg';
+import Post3 from '../../assets/images/blog/post3.jpg';
 
 const posts = [
   {
-    title: 'Trendy w projektowaniu stron internetowych na rok 2024',
-    excerpt: 'Poznaj najnowsze trendy w projektowaniu stron internetowych, które zdominują rok 2024.',
+    title: 'Web Design Trends for 2024',
+    excerpt: 'Discover the latest web design trends that will dominate 2024.',
     image: Post1,
     category: 'Design',
-    date: '12 marca 2024',
+    date: 'March 12, 2024',
     readTime: '5 min',
-    slug: 'trendy-projektowanie-2024'
+    slug: 'web-design-trends-2024'
   },
   {
-    title: 'Jak zwiększyć konwersję w sklepie internetowym?',
-    excerpt: 'Praktyczne wskazówki, które pomogą Ci zwiększyć sprzedaż w Twoim e-commerce.',
+    title: 'How to Increase E-commerce Conversion Rates?',
+    excerpt: 'Practical tips that will help you boost sales in your e-commerce store.',
     image: Post2,
     category: 'E-commerce',
-    date: '8 marca 2024',
+    date: 'March 8, 2024',
     readTime: '7 min',
-    slug: 'zwiekszanie-konwersji'
+    slug: 'increase-conversion-rates'
   },
   {
-    title: 'Sztuczna inteligencja w marketingu internetowym',
-    excerpt: 'Dowiedz się, jak wykorzystać AI do optymalizacji działań marketingowych.',
+    title: 'Artificial Intelligence in Digital Marketing',
+    excerpt: 'Learn how to leverage AI to optimize your marketing efforts.',
     image: Post3,
     category: 'Marketing',
-    date: '1 marca 2024',
+    date: 'March 1, 2024',
     readTime: '6 min',
-    slug: 'ai-w-marketingu'
+    slug: 'ai-in-marketing'
   }
 ];
 
-const categories = ['Wszystkie', 'Design', 'E-commerce', 'Marketing', 'Technologia'];
+const categories = ['All', 'Design', 'E-commerce', 'Marketing', 'Technology'];
 ---
 
-<Layout title="Blog - Nowoczesna Agencja Interaktywna">
+<Layout title="Blog - Modern Interactive Agency">
   <Navbar />
   
   <main class="min-h-screen pt-32 pb-20 bg-gradient-to-br from-light to-white">
@@ -51,10 +51,10 @@ const categories = ['Wszystkie', 'Design', 'E-commerce', 'Marketing', 'Technolog
           Blog
         </span>
         <h1 class="text-4xl md:text-5xl font-bold text-primary mt-4 mb-6" data-aos="fade-up" data-aos-delay="100">
-          Wiedza i <span class="text-accent">inspiracje</span>
+          Knowledge and <span class="text-accent">inspiration</span>
         </h1>
         <p class="text-xl text-secondary max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-          Najnowsze trendy, porady i analizy ze świata technologii i designu
+          Latest trends, tips, and analysis from the world of technology and design
         </p>
       </div>
 
@@ -100,7 +100,7 @@ const categories = ['Wszystkie', 'Design', 'E-commerce', 'Marketing', 'Technolog
               <div class="flex items-center text-sm text-secondary mb-4">
                 <span>{post.date}</span>
                 <span class="mx-2">•</span>
-                <span>{post.readTime} czytania</span>
+                <span>{post.readTime} read</span>
               </div>
               <h2 class="text-xl font-bold text-primary mb-3 group-hover:text-accent transition-colors">
                 {post.title}
@@ -109,10 +109,10 @@ const categories = ['Wszystkie', 'Design', 'E-commerce', 'Marketing', 'Technolog
                 {post.excerpt}
               </p>
               <a 
-                href={`/blog/${post.slug}`}
+                href={`/en/blog/${post.slug}`}
                 class="inline-flex items-center text-accent group-hover:translate-x-2 transition-transform"
               >
-                <span class="font-medium">Czytaj więcej</span>
+                <span class="font-medium">Read more</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -125,15 +125,15 @@ const categories = ['Wszystkie', 'Design', 'E-commerce', 'Marketing', 'Technolog
       <!-- Newsletter Section -->
       <div class="max-w-3xl mx-auto text-center glass p-12 rounded-2xl" data-aos="fade-up">
         <h2 class="text-3xl font-bold text-primary mb-6">
-          Zapisz się do newslettera
+          Subscribe to our newsletter
         </h2>
         <p class="text-xl text-secondary mb-8">
-          Bądź na bieżąco z najnowszymi trendami i poradami ze świata technologii
+          Stay up to date with the latest trends and tips from the world of technology
         </p>
         <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
           <input
             type="email"
-            placeholder="Twój adres email"
+            placeholder="Your email address"
             class="flex-1 px-6 py-3 rounded-full bg-white border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
             required
           />
@@ -141,7 +141,7 @@ const categories = ['Wszystkie', 'Design', 'E-commerce', 'Marketing', 'Technolog
             type="submit"
             class="px-8 py-3 rounded-full bg-accent text-white hover:scale-105 transition-transform font-medium"
           >
-            Zapisz się
+            Subscribe
           </button>
         </form>
       </div>

@@ -4,6 +4,13 @@ import react from '@astrojs/react';
 
 export default defineConfig({
   integrations: [tailwind(), react()],
+  i18n: {
+    defaultLocale: "pl",
+    locales: ["pl", "en"],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
   build: {
     inlineStylesheets: 'auto',
   },

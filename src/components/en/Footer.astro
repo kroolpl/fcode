@@ -1,27 +1,27 @@
 ---
 import { Image } from 'astro:assets';
-import Logo from '../assets/images/logo.png';
+import Logo from '../../assets/images/logo.png';
 
 const currentYear = new Date().getFullYear();
 
 const footerLinks = {
-  "Firma": [
-    { name: "O nas", href: "/o-nas" },
-    { name: "Portfolio", href: "/portfolio" },
-    { name: "Blog", href: "/blog" },
-    { name: "Kariera", href: "/kariera" }
+  "Company": [
+    { name: "About Us", href: "/en/about" },
+    { name: "Portfolio", href: "/en/portfolio" },
+    { name: "Blog", href: "/en/blog" },
+    { name: "Careers", href: "/en/careers" }
   ],
-  "Usługi": [
-    { name: "Strony WWW", href: "/uslugi#www" },
-    { name: "Aplikacje webowe", href: "/uslugi#aplikacje" },
-    { name: "E-commerce", href: "/uslugi#sklepy" },
-    { name: "UI/UX Design", href: "/uslugi#design" }
+  "Services": [
+    { name: "Websites", href: "/en/services#websites" },
+    { name: "Web Applications", href: "/en/services#applications" },
+    { name: "E-commerce", href: "/en/services#ecommerce" },
+    { name: "UI/UX Design", href: "/en/services#design" }
   ],
-  "Kontakt": [
-    { name: "Darmowa wycena", href: "/kontakt" },
+  "Contact": [
+    { name: "Free Quote", href: "/en/contact" },
     { name: "+48 500 600 700", href: "tel:+48500600700" },
-    { name: "kontakt@nowoczesna.pl", href: "mailto:kontakt@nowoczesna.pl" },
-    { name: "FAQ", href: "/faq" }
+    { name: "contact@modern.com", href: "mailto:contact@modern.com" },
+    { name: "FAQ", href: "/en/faq" }
   ]
 };
 
@@ -38,10 +38,10 @@ const socialLinks = [
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
       <!-- Logo and description -->
       <div class="col-span-2 md:col-span-1">
-        <a href="/" class="inline-block mb-4">
+        <a href="/en" class="inline-block mb-4">
           <Image 
             src={Logo} 
-            alt="Logo firmy Nowoczesna Agencja"
+            alt="Modern Agency Logo"
             class="h-8 w-auto hover:opacity-80 transition-opacity"
             width={256}
             height={64}
@@ -49,7 +49,7 @@ const socialLinks = [
           />
         </a>
         <p class="mt-4 text-secondary">
-          Tworzymy nowoczesne rozwiązania cyfrowe dla firm, które chcą się wyróżnić.
+          We create modern digital solutions for businesses that want to stand out.
         </p>
       </div>
       
@@ -78,7 +78,7 @@ const socialLinks = [
       <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         <!-- Copyright -->
         <div class="text-secondary text-sm">
-          © {currentYear} FCODE. Wszystkie prawa zastrzeżone.
+          © {currentYear} FCODE. All rights reserved.
         </div>
 
         <!-- Social links -->
@@ -105,11 +105,11 @@ const socialLinks = [
 
         <!-- Additional links -->
         <div class="flex space-x-6 text-sm">
-          <a href="/polityka-prywatnosci" class="text-secondary hover:text-accent transition-colors">
-            Polityka prywatności
+          <a href="/en/privacy-policy" class="text-secondary hover:text-accent transition-colors">
+            Privacy Policy
           </a>
-          <a href="/regulamin" class="text-secondary hover:text-accent transition-colors">
-            Regulamin
+          <a href="/en/terms" class="text-secondary hover:text-accent transition-colors">
+            Terms of Service
           </a>
         </div>
       </div>

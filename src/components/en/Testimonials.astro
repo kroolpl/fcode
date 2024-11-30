@@ -1,29 +1,29 @@
 ---
 import { Image } from 'astro:assets';
-import bossImage from '../assets/images/boss.jpeg';
+import bossImage from '../../assets/images/boss.jpeg';
 
 const testimonials = [
   {
-    name: "Anna Kowalska",
+    name: "Anna Smith",
     role: "CEO, TechStart",
     image: bossImage,
-    content: "Współpraca z tym zespołem to czysta przyjemność. Ich innowacyjne podejście i profesjonalizm znacząco wpłynęły na rozwój naszego biznesu online.",
+    content: "Working with this team has been a pleasure. Their innovative approach and professionalism significantly impacted our online business growth.",
     rating: 5,
     company: "TechStart"
   },
   {
-    name: "Marek Nowak",
+    name: "Mark Johnson",
     role: "Marketing Director, InnovatePL",
     image: bossImage,
-    content: "Jestem pod wrażeniem jakości wykonania i terminowości. Strona internetowa, którą dla nas stworzyli, przekroczyła nasze oczekiwania.",
+    content: "I'm impressed with the quality of work and timeliness. The website they created for us exceeded our expectations.",
     rating: 5,
     company: "InnovatePL"
   },
   {
-    name: "Karolina Wiśniewska",
+    name: "Caroline Wilson",
     role: "Founder, EcoStyle",
     image: bossImage,
-    content: "Ich kreatywne rozwiązania i zrozumienie naszych potrzeb pomogły nam zwiększyć sprzedaż online o 200% w ciągu 6 miesięcy.",
+    content: "Their creative solutions and understanding of our needs helped us increase online sales by 200% within 6 months.",
     rating: 5,
     company: "EcoStyle"
   }
@@ -41,19 +41,20 @@ const testimonials = [
     <div class="text-center mb-16">
       <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-accent/10 text-accent mb-4">
         <span class="animate-pulse mr-2">⭐</span>
-        Opinie naszych klientów
+        Client Testimonials
       </span>
       <h2 class="text-4xl md:text-5xl font-bold text-primary mb-6">
-        Co mówią o nas
+        What Our
         <span class="bg-gradient-to-r from-accent to-[#203951] bg-clip-text text-transparent">
-          klienci
+          Clients Say
         </span>
       </h2>
       <p class="text-xl text-secondary max-w-2xl mx-auto">
-        Zobacz, jak pomagamy firmom osiągać sukces w świecie cyfrowym.
+        See how we help businesses achieve success in the digital world.
       </p>
     </div>
 
+    <!-- Rest of the component remains the same, just using English testimonials -->
     <!-- Testimonials Slider -->
     <div x-data="{
       currentSlide: 0,
@@ -77,7 +78,7 @@ const testimonials = [
         this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
       }
     }" class="relative" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()">
-      <!-- Testimonials Container -->
+      <!-- Same slider implementation as Polish version -->
       <div class="relative overflow-hidden">
         <div class="flex transition-transform duration-500 ease-in-out" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
           {testimonials.map((testimonial, index) => (
@@ -158,7 +159,7 @@ const testimonials = [
 
     <!-- Trust Bar -->
     <div class="mt-20 pt-12 border-t border-gray-200">
-      <p class="text-center text-secondary mb-8">Zaufali nam</p>
+      <p class="text-center text-secondary mb-8">Trusted by</p>
       <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60">
         {['TechStart', 'InnovatePL', 'EcoStyle', 'FutureBox', 'SmartTech'].map(company => (
           <div class="text-xl font-bold text-primary/60 hover:text-primary transition-colors duration-300">
@@ -177,4 +178,4 @@ const testimonials = [
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
-</style>
+</style> 
