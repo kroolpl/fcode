@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar.astro';
 import FloatingMenu from '../components/FloatingMenu.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
 import FontLoader from '../components/FontLoader.astro';
-import FloatingLanguageSwitcher from '../components/FloatingLanguageSwitcher.astro';
 import 'aos/dist/aos.css';
 
 interface Props {
@@ -41,7 +40,6 @@ const isEnglish = pathname.startsWith('/en');
     </div>
     <FloatingWhatsApp />
     <FloatingMenu />
-    <FloatingLanguageSwitcher />
     <script>
       import AOS from 'aos';
       
